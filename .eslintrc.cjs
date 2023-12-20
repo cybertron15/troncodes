@@ -11,13 +11,17 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:react-hooks/recommended',
-    `plugin:@typescript-eslint/stylistic-type-checked`,
-    `plugin:react/recommended`,
-    `plugin:react/jsx-runtime`
+    'plugin:@typescript-eslint/stylistic-type-checked',
+    'plugin:react/recommended',
+    'plugin:react/jsx-runtime'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
   plugins: ['react-refresh'],
+  settings: {
+    react: {
+      version: "detect" // or specify your React version (e.g., "16.8")
+    }},
   rules: {
     'react-refresh/only-export-components': [
       'warn',

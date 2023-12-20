@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background-color: black;
+    /* Optionally, you might want to set other styles like text color */
+    color: white;
+    /* Example: Setting text color to white */
+}
+
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Inter Regular'), local('Inter-Regular'),
+        url('Roboto\Roboto-Regular.ttf') format('truetype');
+    /*Update the path to your font file*/
+}
+
+@font-face {
+    font-family: 'Pacifico';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Pacifico Regular'), local('Pacifico-Regular'),
+        url('/fonts/Pacifico/Pacifico-Regular.ttf') format('truetype');
+    /* Update the path to your font file */
+}

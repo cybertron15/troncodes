@@ -13,8 +13,8 @@ body {
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 400;
-    src: local('Inter Regular'), local('Inter-Regular'),
-        url('Roboto\Roboto-Regular.ttf') format('truetype');
+    src: local('Roboto Regular'), local('Roboto-Regular'),
+        url('/fonts/Roboto/Roboto-Regular.ttf') format('truetype');
     /*Update the path to your font file*/
 }
 

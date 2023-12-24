@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
 			</div>
 			<ul className="flex gap-10 text-xl font-roboto mt-auto">
 				{navItems.map((item:string)=>{
-					return <li key={item} onClick={changeActive} onKeyDown={(event)=>changeActive(event)} className={`hover:text-orange-500 cursor-pointer ${item===active && "text-orange-500"}`}>{item}</li>
+					return <li key={item} onClick={changeActive} onKeyDown={(event)=>changeActive(event)} className={`hover:text-orange-500 hover:scale-110 cursor-pointer transition-transform duration-300 transform ${item===active && "text-orange-500"}`}>{item}</li>
 				})}
 			
 			</ul>

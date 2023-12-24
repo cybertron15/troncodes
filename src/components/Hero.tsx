@@ -9,10 +9,10 @@ const Hero: React.FC = () => {
 			<div className="font-roboto text-3xl mt-4">
 				I code, Therefore I am not broke.
 			</div>
-			<div className="font-roboto text-2xl italic">&mdash; Palash Dhavle</div>
+			<div className="font-roboto text-2xl italic mt-2">&mdash; Palash Dhavle</div>
 			<button
 				type="button"
-				className="bg-orange-500 text-2xl px-6 pt-1 pb-1 rounded-lg mt-3 cursor-pointer"
+				className="bg-orange-500 text-2xl px-6 pt-1 pb-1 rounded-lg mt-3 cursor-pointer hover:scale-105"
 			>
 				Hire me
 			</button>
@@ -23,6 +23,7 @@ const Hero: React.FC = () => {
 					<ChevronDown  width={50} height={50} className="relative bottom-9" />
 				</div>
 			</div>
+			<img src="images/main_bg.jpg" alt="" className="relative bottom-96 -z-10"/>
 		</div>
 	);
 };

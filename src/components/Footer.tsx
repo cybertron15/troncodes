@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
 					className="hover:scale-110 hover:ring-2 ring-orange-500 rounded-md transition-transform duration-300 transform"
 				>
 					<img
-						src="images/github.png"
+						src="images/socialmedia/github.png"
 						alt=""
 						style={{ width: "40px", height: "40px" }}
 					/>
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
 					className="hover:scale-110 hover:ring-2 ring-orange-500 rounded-lg transition-transform duration-300 transform"
 				>
 					<img
-						src="images/instagram.png"
+						src="images/socialmedia/instagram.png"
 						alt=""
 						style={{ width: "40px", height: "40px" }}
 					/>
@@ -33,7 +33,7 @@ const Footer: React.FC = () => {
 					className="hover:scale-110 hover:ring-2 ring-orange-500 rounded-md transition-transform duration-300 transform"
 				>
 					<img
-						src="images/twitter.png"
+						src="images/socialmedia/twitter.png"
 						alt=""
 						style={{ width: "40px", height: "40px" }}
 					/>
@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
 					className="hover:scale-110 hover:ring-2 ring-orange-500 rounded-md transition-transform duration-300 transform"
 				>
 					<img
-						src="images/linkedin.png"
+						src="images/socialmedia/linkedin.png"
 						alt=""
 						style={{ width: "40px", height: "40px" }}
 					/>

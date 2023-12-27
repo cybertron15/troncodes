@@ -9,14 +9,12 @@ const Projects: React.FC = () => {
 		setmove((prev) => {
 			const limit = (-projects.length * 100) + 100
 			if (sign === "+") {
-				console.log(prev - 100,sign,limit);
 				if (limit < prev)
 					return prev - 100; return prev
 			}if (sign === "-"){
-				if (0 <= prev)
+				if (0 > prev)
 					return prev + 100; return prev
 			}
-			console.log(prev+100,sign,limit);
 			return prev + 100;
 		});
 	};

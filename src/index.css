@@ -27,6 +27,15 @@ body {
     /* Update the path to your font file */
 }
 
+@font-face {
+    font-family: 'Caveat';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Caveat Regular'), local('Caveat-Regular'),
+        url('/fonts/Caveat/Caveat-Regular.ttf') format('truetype');
+    /* Update the path to your font file */
+}
+
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;

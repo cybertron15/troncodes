@@ -15,7 +15,7 @@ const ImageDisplay: React.FC<ImageDisplayProps> = ({images,project}) => {
 		<div className="flex-grow gap-4 flex flex-col my-12">
 			<div className=" h-72">
 				<img
-					src={`images/projects/autolearn/${currentPicture}`}
+					src={`images/projects/${project}/${currentPicture}`}
 					alt=""
 					className="object-cover rounded-lg w-full h-full"
 				/>
@@ -24,8 +24,8 @@ const ImageDisplay: React.FC<ImageDisplayProps> = ({images,project}) => {
 				{images.map((img) => {
 					return (
 						<div
-							className={`w-48 h-32  ${
-								active === img && "ring-4 ring-orange-500"
+							className={`w-48 h-32 hover:scale-105 transition-transform duration-300 transform ${
+								active === img && "ring-4 ring-orange-500 scale-105"
 							} rounded-lg`}
 							onClick={() => {
 								setcurrentPicture(img);

@@ -1,10 +1,25 @@
-import { ArrowUpRight, Heart } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import ImageDisplay from "./ImageDisplay";
 import TechTile from "./TechTile";
 import projects from "../data/projects";
-
+import { useState } from "react";
 const Projects: React.FC = () => {
-	
+	const [move, setmove] = useState(0);
+	const handleMove = (sign: "+" | "-") => {
+		setmove((prev) => {
+			const limit = (-projects.length * 100) + 100
+			if (sign === "+") {
+				console.log(prev - 100,sign,limit);
+				if (limit < prev)
+					return prev - 100; return prev
+			}if (sign === "-"){
+				if (0 <= prev)
+					return prev + 100; return prev
+			}
+			console.log(prev+100,sign,limit);
+			return prev + 100;
+		});
+	};
 	return (
 		<>
 			<div className="px-5">
@@ -35,50 +50,77 @@ const Projects: React.FC = () => {
 					</a>
 				</div>
 			</div>
-			<div className="px-14" style={{ backgroundColor: "#212121" }}>
-				<div className="mt-5">
-					{projects.map((project) => {
-						return (
-							<div className="flex" key={project.name}>
-								<ImageDisplay images={project.images} project={project.name} />
-								<div className="basis-3/5 h-10 my-12 ms-10">
-									<div className="font-roboto text-6xl relative bottom-2">
-										Auto Learn
-									</div>
-									<div className="font-roboto text-xl h-36 overflow-auto">
-										{project.desc}
-									</div>
-									<div className="font-roboto text-2xl relative bottom-2 mt-8">
-										Tech Stack
-									</div>
-									<div className="flex gap-5 w-full ">
-										{project.techStack.map((tech) => {
-											return <TechTile tech={tech} key={tech}/>;
-										})}
-									</div>
-									<hr className="to-white my-4" />
-									<div className="flex gap-3 justify-between">
-										<div className="basic-1/2 w-full">
-											<button
-												type="button"
-												className="bg-slate-700 hover:bg-slate-800 w-full text-xl p-3 rounded-md"
-											>
-												Source Code
-											</button>
+			<div
+				className="flex justify-center mt-5"
+				style={{ backgroundColor: "#212121" }}
+			>
+				<div className="flex flex-col w-14 justify-center items-center">
+					<ChevronLeft
+						size={"55"}
+						onClick={() => handleMove("-")}
+						className="cursor-pointer"
+					/>
+				</div>
+				{/* window */}
+				<div className="w-full overflow-hidden">
+					{/* slider */}
+					<div
+						className={"flex mt-5 transition delay-100"}
+						style={{ transform: `translateX(${move}%)` }}
+					>
+						{projects.map((project) => {
+							return (
+								<div className="flex flex-none w-full px-3" key={project.title}>
+									<ImageDisplay
+										images={project.images}
+										project={project.name}
+									/>
+									<div className="basis-3/5 h-10 my-12 ms-10">
+										<div className="font-roboto text-6xl relative">
+											{project.title}
 										</div>
-										<div className="basic-1/2 w-full">
-											<button
-												type="button"
-												className="bg-orange-500 hover:bg-orange-600 w-full text-xl p-3 rounded-md"
-											>
-												Open Application
-											</button>
+										<div className="font-roboto text-xl h-36 overflow-y-auto">
+											{project.desc}
+										</div>
+										<div className="font-roboto text-2xl relative bottom-2 mt-8">
+											Tech Stack
+										</div>
+										<div className="flex flex-wrap gap-5 w-full overflow-y-auto h-20">
+											{project.techStack.map((tech) => {
+												return <TechTile tech={tech} key={tech} />;
+											})}
+										</div>
+										<hr className="to-white my-4" />
+										<div className="flex gap-3 justify-between">
+											<div className="basic-1/2 w-full">
+												<button
+													type="button"
+													className="bg-slate-700 hover:bg-slate-800 w-full text-xl p-3 rounded-md"
+												>
+													Source Code
+												</button>
+											</div>
+											<div className="basic-1/2 w-full">
+												<button
+													type="button"
+													className="bg-orange-500 hover:bg-orange-600 w-full text-xl p-3 rounded-md"
+												>
+													Open Application
+												</button>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						);
-					})}
+							);
+						})}
+					</div>
+				</div>
+				<div className="flex flex-col w-14 justify-center items-center">
+					<ChevronRight
+						size={"55"}
+						onClick={() => handleMove("+")}
+						className="cursor-pointer hover:to-red-600"
+					/>
 				</div>
 			</div>
 		</>

@@ -24,17 +24,17 @@ const Contact: React.FC = () => {
 				can fill this form to reach out to me.
 			</div>
 			<div className="flex flex-col w-full gap-3 justify-center items-center mt-5">
-				<input type="text" placeholder="Name" className="p-2 rounded-md w-96" />
+				<input type="text" placeholder="Name" className="p-2 rounded-md w-96 focus:outline-orange-500 text-black" />
 				<input
 					type="email"
 					placeholder="Email"
-					className="p-2 rounded-md w-96"
+					className="p-2 rounded-md w-96 focus:outline-orange-500 text-black"
 				/>
 				<textarea
 					id="w3review"
 					name="w3review"
 					placeholder="Message..."
-					className="p-2 rounded-md w-96 h-32"
+					className="p-2 rounded-md w-96 h-32 focus:outline-orange-500 text-black"
 				/>
 				<input
 					type="button"

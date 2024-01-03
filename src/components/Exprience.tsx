@@ -138,7 +138,7 @@ const Exprience: React.FC = () => {
 								<div className="flex flex-wrap gap-5 w-full overflow-y-auto h-14 mt-2">
 									{exp.techStack.map((tech) => {
 										return (
-											<TechTile tech={tech} key={tech} dimensions={"11"} />
+											<TechTile tech={tech} key={tech} dimensions="11" />
 										);
 									})}
 								</div>

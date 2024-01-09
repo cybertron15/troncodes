@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 
-const Hero: React.FC = () => {
+const Hero2: React.FC = () => {
 	return (
 		<div className="text-center">
 			<div className="font-roboto text-5xl mt-32">
@@ -17,13 +17,8 @@ const Hero: React.FC = () => {
 					<ChevronDown width={50} height={50} className="relative bottom-9" />
 				</div>
 			</div>
-			<img
-				src="images/main_bg.jpg"
-				alt=""
-				className="relative bottom-96 -z-10"
-			/>
 		</div>
 	);
 };
 
-export default Hero;
+export default Hero2;

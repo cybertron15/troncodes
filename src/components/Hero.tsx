@@ -23,7 +23,6 @@ const Hero: React.FC = () => {
 					<ChevronDown  width={50} height={50} className="relative bottom-9" />
 				</div>
 			</div>
-			<img src="images/main_bg.jpg" alt="" className="relative bottom-96 -z-10"/>
 		</div>
 	);
 };

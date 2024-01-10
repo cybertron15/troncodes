@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 
 const Hero: React.FC = () => {
 	return (
-		<div className="text-center">
+		<div className="text-center fixed z-20 w-full mt-11">
 			<div className="font-roboto text-8xl mt-20">
 				Welcome to <span className="font-pacifico">TronCodes</span>
 			</div>

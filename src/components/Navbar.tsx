@@ -8,9 +8,13 @@ const Navbar: React.FC = () => {
 		setactive(target.innerText)
 	}
 	return (
-		<nav className="flex justify-between mx-5 mt-5">
+		<nav className="flex justify-between mx-5 pt-5">
 			<div>
-				<span className="font-pacifico text-3xl cursor-pointer">TronCodes</span>
+				{/* this component is placed outisde the parralax component of react-spring which i am using in app component
+				the parrallax component has an image inside which i want to scroll up faster as I scroll but the problem was when the
+				image reached the top of the page the below div with TronCodes was hiding behind the image and for some weird reason
+				if I add transform class to it does not hide and works fine IDK how it works but its working */}
+				<div className="font-pacifico text-3xl cursor-pointer transform">TronCodes</div>
 			</div>
 			<ul className="flex gap-10 text-xl font-roboto mt-auto">
 				{navItems.map((item:string)=>{

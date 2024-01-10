@@ -26,6 +26,7 @@ const Blog: React.FC = () => {
 				{blogs.map((blog) => {
 					return (
 						<BlogItem
+							key={blog.title}
 							image={blog.img}
 							title={stringShortner(blog.title, 38)}
 							desc={stringShortner(blog.desc, 135)}

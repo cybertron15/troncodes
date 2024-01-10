@@ -4,8 +4,6 @@ interface ImageDisplayProps {
 	dimensions: string;
 }
 const TechTile: React.FC<ImageDisplayProps> = ({ tech, dimensions}) => {
-	console.log(dimensions);
-	
 	return (
 		<div
 			title={tech.slice(0, -4)}

@@ -11,12 +11,17 @@ export default {
       },
       animation: {
         heartbeat: 'heartbeat 1s infinite',
+        fadeout: 'fadeout 1s forwards',
       },
       keyframes: {
         heartbeat: {
           '0%, 100%': { transform: 'scale(1)' },
           '50%': { transform: 'scale(1.1)' },
           '60%': { transform: 'scale(1.2)' },
+        },
+        fadeout: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
         }
       }
 

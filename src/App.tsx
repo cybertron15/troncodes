@@ -29,9 +29,9 @@ function App() {
 			if (
 				(scrollPosition > heroLimit) &&
 				(scrollPosition < hero2Limit) &&
-				(showHeros)
+				(showHeros) && !Hero2Visibility
 			) {
-				console.log("fade out hero 1 fade in hero 2", HeroVisibility);
+				// console.log("fade out hero 1 fade in hero 2", showHeros);
 				setHeroVisibility(false)
 				setTimeout(() => {
 					setshowHero2(true);
@@ -39,67 +39,62 @@ function App() {
 				setHero2Visibility(true);
 				
 			} 
-			// fade out hero 2 and fade in hero 3
+			// fade out hero 2 and fade in hero 3 or just fade in hero 3
 			else if (
 				(scrollPosition > hero2Limit) &&
-				(scrollPosition < hero3Limit) &&
-				(showHeros)
+				(scrollPosition < hero3Limit) && showHeros && !Hero3Visibility
 			) {
-				console.log("fade out hero 2 and fade in hero 3", showHeros);
-				setHero2Visibility(false);
-				setTimeout(async() => {
+				// console.log("fade out hero 2 and fade in hero 3", showHeros);
+				if (Hero2Visibility){
+					setHero2Visibility(false);
+				}
+				setTimeout(() => {
 					setshowHero3(true);
 				}, 500);
 				setHero3Visibility(true)
+		
 			}
 			// fade out hero 3 and don't render heros
 			else if (
-				(scrollPosition > hero3Limit) 
+				(scrollPosition > hero3Limit && Hero3Visibility) 
 			) {
-				console.log("fade out hero 3 and don't render heros", showHeros);
+				// console.log("fade out hero 3 and don't render heros", showHeros);
 				setHero3Visibility(false);
-				setTimeout(async() => {
+				setTimeout(() => {
 					setshowHeros(false);
 				}, 500);
 			}
-			// render heros and fade in hero 3
+			// render heros
 			else if (
-				(scrollPosition > hero2Limit) &&
-				(scrollPosition < hero3Limit) &&
-				(!showHeros)
+				(scrollPosition < hero3Limit && !showHeros) 
 			) {
-				console.log("render heros and fade in hero 3", showHeros);
+				console.log("reder heros", showHeros);
 				setshowHeros(true)
-				setHero3Visibility(true)
 			}
-
-			// // fade out hero 2 and fade in hero 1
-			// else if ((scrollPosition < heroLimit) && Hero2Visibility) {
-			// 	console.log("fade out hero 2 fade in hero 1");
-			// 	setHero2Visibility(false);
-			// 	setHeroVisibility(true);
-			// 	setTimeout(() => {
-			// 		setshowHero2(false);
-			// 	}, 500);
-			// }
-			
-			// else if (scrollPosition < hero2Limit && showHeros===false) {
-			// 	console.log("show heros and fade in hero 2", showHeros);
-			// 	setTimeout(async() => {
-			// 		setshowHeros(true);
-			// 	}, 500);
-			// 	setHero2Visibility(true);
-			// 	// setHero2Visibility(true);
-			// }
-
-			// Log the scroll position to the console
-			// console.log(`Scroll Position:${scrollPosition} pixels`);
+			// fade out hero 3 and fade in hero 1
+			else if ((scrollPosition < hero2Limit) && Hero3Visibility) {
+				// console.log("fade out hero 3 and fade in hero 1");
+				setHero3Visibility(false);
+				setHero2Visibility(true);
+				setTimeout(() => {
+					setshowHero3(false);
+				}, 500);
+			}
+			// fade out hero 2 and fade in hero 1
+			else if ((scrollPosition < heroLimit) && Hero2Visibility) {
+				// console.log("fade out hero 2 fade in hero 1");
+				setHero2Visibility(false);
+				setHeroVisibility(true);
+				setTimeout(() => {
+					setshowHero2(false);
+				}, 500);
+			}
 		}
 		window.addEventListener("scroll",scrollUpdater);
 
 		// Cleanup function to remove the event listener when the component unmounts
 		return () => {
-			window.removeEventListener("click", scrollUpdater);
+			window.removeEventListener("scroll", scrollUpdater);
 		};
 	});
 
@@ -147,12 +142,12 @@ function App() {
 
 			<div className="pt-20 -z-20">
 				<img src="images/main_bg.jpg" alt="" className="mt-48" />
-			</div>
 			<Blog />
 			<Projects />
 			<Exprience />
 			<Contact />
 			<Footer />
+			</div>
 		</>
 	);
 }

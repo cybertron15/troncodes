@@ -71,13 +71,13 @@ function App() {
 				console.log("reder heros", showHeros);
 				setshowHeros(true)
 			}
-			// fade out hero 3 and fade in hero 1
+			// fade out hero 3 and fade in hero 2
 			else if ((scrollPosition < hero2Limit) && Hero3Visibility) {
 				// console.log("fade out hero 3 and fade in hero 1");
 				setHero3Visibility(false);
-				setHero2Visibility(true);
 				setTimeout(() => {
 					setshowHero3(false);
+					setHero2Visibility(true);
 				}, 500);
 			}
 			// fade out hero 2 and fade in hero 1

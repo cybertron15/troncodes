@@ -22,14 +22,12 @@ function App() {
 	const heroLimit = -93 * -1;
 	const hero2Limit = -210 * -1;
 	const hero3Limit = -317 * -1;
-	console.log(heroLimit,hero2Limit,hero3Limit);
-	
+
 	useEffect(() => {
 		const scrollUpdater = () => {
 			// Get the current scroll position
 			const scrollPosition = contentPos.current * -1;
-			console.log(scrollPosition);
-			
+
 			// show heros and fade in hero 2
 			// fade out hero 1 fade in hero 2
 			if (
@@ -128,14 +126,14 @@ function App() {
 	}, [contentref]);
 
 	return (
-		<div className="overflow-hidden h-svh">
-			<div className="fixed w-full top-0">
+		<div className="h-svh overflow-hidden">
+			<div className="fixed w-full top-0 z-10">
 				<Navbar />
 			</div>
-			{/* {showHeros &&
+			{showHeros &&
 				(showHero3 ? (
-					<div>
-						<div className="z-20">
+					<div >
+						<div className="z-20 relative">
 							<div
 								className={`transition-opacity duration-500 ease-in-out ${
 									Hero3Visibility ? "opacity-100" : "opacity-0"
@@ -146,7 +144,7 @@ function App() {
 						</div>
 					</div>
 				) : showHero2 ? (
-					<div className="z-20">
+					<div className="z-20 relative">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								Hero2Visibility ? "opacity-100" : "opacity-0"
@@ -165,20 +163,19 @@ function App() {
 							<Hero />
 						</div>
 					</div>
-				))} */}
+				))}
 
-			<div className="pt-40 -z-20 relative" ref={contentref}>
+			<div className="pt-40" ref={contentref}>
 				<img src="images/main_bg.jpg" alt="" className="mt-48" />
-
-				<div className="overflow-y-auto border">
+		
+				<div className="overflow-y-auto h-svh">
 					<Blog />
-					<Projects />
-					<Exprience />
-					<Contact />
-					<Footer />
+						<Projects />
+						<Exprience />
+						<Contact />
 				</div>
-				
 			</div>
+						<Footer />
 		</div>
 	);
 }

@@ -18,11 +18,14 @@ function App() {
 	const [showHero3, setshowHero3] = useState(false);
 	const [showHeros, setshowHeros] = useState(true);
 	const contentref = useRef<HTMLDivElement>(null);
+	const content2ref = useRef<HTMLDivElement>(null);
+	const [scrollUp, setscrollUp] = useState(true)
 	const contentPos = useRef<number>(0);
 	const heroLimit = -93 * -1;
 	const hero2Limit = -210 * -1;
 	const hero3Limit = -317 * -1;
 
+	// effects and function to handle the fade effects
 	useEffect(() => {
 		const scrollUpdater = () => {
 			// Get the current scroll position
@@ -109,7 +112,7 @@ function App() {
 				// sets the direction of scrolling
 				if (deltaY > 0 && contentPos.current > -1305) {
 					contentPos.current -= 1;
-				} else if (deltaY < 0 && contentPos.current < 90) {
+				} else if (deltaY < 0 && contentPos.current < 90 && scrollUp) {
 					contentPos.current += 1;
 				}
 				content.style.transform = `translateY(${contentPos.current}px)`;
@@ -123,7 +126,35 @@ function App() {
 		return () => {
 			window.removeEventListener("wheel", mover);
 		};
-	}, [contentref]);
+	}, [contentref,scrollUp]);
+
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(()=>{
+		const content = content2ref.current;
+		
+		const scrollHandler = ()=> {
+			if (content){
+			// if the scroller is at top
+			if (content.scrollTop === 0){
+				// logic to reduce redundant state update
+				setscrollUp(true)
+			}
+			else{
+				// logic to reduce redundant state update
+				setscrollUp(false)
+			}}
+
+		}
+
+		if (content){
+			content.addEventListener('scroll',scrollHandler)
+		}
+		return () => {
+			if (content){
+			content.removeEventListener("scroll", scrollHandler);
+		}
+		};
+	},[content2ref])
 
 	return (
 		<div className="h-svh overflow-hidden">
@@ -132,7 +163,7 @@ function App() {
 			</div>
 			{showHeros &&
 				(showHero3 ? (
-					<div >
+					<div>
 						<div className="z-20 relative">
 							<div
 								className={`transition-opacity duration-500 ease-in-out ${
@@ -167,15 +198,15 @@ function App() {
 
 			<div className="pt-40" ref={contentref}>
 				<img src="images/main_bg.jpg" alt="" className="mt-48" />
-		
-				<div className="overflow-y-auto h-svh">
+
+				<div className="overflow-y-auto h-svh" ref={content2ref}>
 					<Blog />
-						<Projects />
-						<Exprience />
-						<Contact />
+					<Projects />
+					<Exprience />
+					<Contact />
 				</div>
 			</div>
-						<Footer />
+			<Footer />
 		</div>
 	);
 }

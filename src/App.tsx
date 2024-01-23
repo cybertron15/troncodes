@@ -197,7 +197,7 @@ function App() {
 				))}
 
 			<div className="pt-40" ref={contentref}>
-				<img src="images/main_bg.jpg" alt="" className="mt-48" />
+				<img src="images/main_bg.png" alt="" className="mt-48" />
 
 				<div className="overflow-y-auto h-svh" ref={content2ref}>
 					<Blog />

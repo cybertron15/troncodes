@@ -8,93 +8,133 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Exprience from "./components/Exprience";
 import { useEffect, useRef, useState } from "react";
-import { Pointer } from "lucide-react";
 
 function App() {
+	// states to handle Hero visibilities (opasity)
 	const [HeroVisibility, setHeroVisibility] = useState(true);
 	const [Hero2Visibility, setHero2Visibility] = useState(false);
 	const [Hero3Visibility, setHero3Visibility] = useState(false);
-	const [showHero2, setshowHero2] = useState(false);
-	const [showHero3, setshowHero3] = useState(false);
-	const [showHeros, setshowHeros] = useState(true);
-	const contentref = useRef<HTMLDivElement>(null);
-	const content2ref = useRef<HTMLDivElement>(null);
-	const [scrollUp, setscrollUp] = useState(true);
-	const [allowContentScrollDown, setallowContentScrollDown] = useState(false);
-	const contentPos = useRef<number>(0);
-	const heroLimit = -93 * -1;
-	const hero2Limit = -210 * -1;
-	const hero3Limit = -317 * -1;
 
-	// effects and function to handle the fade effects
+	// states to handle the rendering of heros
+	const [renderHero2, setRenderHero2] = useState(false);
+	const [showHero3, setRenderHero3] = useState(false);
+
+	// state to handle the render of hero rendering block
+	const [renderHeros, setshowHeros] = useState(true);
+
+	// refs for content and content block to capture the wheel events
+	const contentBlockRef = useRef<HTMLDivElement>(null);
+	const contentRef = useRef<HTMLDivElement>(null);
+
+	// state to control the content block scrolling
+	const [allowContentBlockScrollUp, setAllowContentBlockScrollUp] =
+		useState(true);
+	const contentBlockPos = useRef<number>(0);
+
+	// state to control the content scrolling
+	const [allowContentScrollDown, setAllowContentScrollDown] = useState(false);
+
+	// hero display limits. making them positive for convinience
+	const heroDisplayLimit = -93 * -1;
+	const hero2DisplayLimit = -210 * -1;
+	const hero3DisplayLimit = -390 * -1;
+
+	const [controller, setcontroller] = useState(true);
+
+	// handles the fade effects of heros
 	useEffect(() => {
 		const scrollUpdater = () => {
-			// Get the current scroll position
-			const scrollPosition = contentPos.current * -1;
+			// Get the current position of content block
+			const scrollPosition = contentBlockPos.current * -1;
 
-			// show heros and fade in hero 2
 			// fade out hero 1 fade in hero 2
 			if (
-				scrollPosition > heroLimit &&
-				scrollPosition < hero2Limit &&
-				showHeros &&
+				scrollPosition > heroDisplayLimit &&
+				scrollPosition < hero2DisplayLimit &&
+				renderHeros &&
 				!Hero2Visibility
 			) {
-				console.log("fade out hero 1 fade in hero 2", showHeros);
+				// console.log("fade out hero 1 fade in hero 2", renderHeros);
+				// hide hero
 				setHeroVisibility(false);
+
+				// render hero 2 block
 				setTimeout(() => {
-					setshowHero2(true);
+					setRenderHero2(true);
 				}, 500);
+				// show hero 2
 				setHero2Visibility(true);
 			}
 			// fade out hero 2 and fade in hero 3 or just fade in hero 3
 			else if (
-				scrollPosition > hero2Limit &&
-				scrollPosition < hero3Limit &&
-				showHeros &&
+				scrollPosition > hero2DisplayLimit &&
+				scrollPosition < hero3DisplayLimit &&
+				renderHeros &&
 				!Hero3Visibility
 			) {
 				// console.log("fade out hero 2 and fade in hero 3", showHeros);
+				// hide hero 2 if it's visible
 				if (Hero2Visibility) {
 					setHero2Visibility(false);
 				}
+				// render hero 3 block
+				// show hero 3
 				setTimeout(() => {
-					setshowHero3(true);
+					setHero3Visibility(true);
+				}, 600);
+				setTimeout(() => {
+					setRenderHero3(true);
 				}, 500);
-				setHero3Visibility(true);
 			}
+
 			// fade out hero 3 and don't render heros
-			else if (scrollPosition > hero3Limit && Hero3Visibility) {
+			else if (scrollPosition > hero3DisplayLimit && Hero3Visibility) {
 				// console.log("fade out hero 3 and don't render heros", showHeros);
+				// hide hero 3
 				setHero3Visibility(false);
+
+				// don't render block containing all the heros
 				setTimeout(() => {
 					setshowHeros(false);
 				}, 500);
 			}
+
 			// render heros
-			else if (scrollPosition < hero3Limit && !showHeros) {
+			else if (scrollPosition < hero3DisplayLimit && !renderHeros) {
+				// render heros
 				setshowHeros(true);
 			}
-			// fade out hero 3 and fade in hero 1
-			else if (scrollPosition < hero2Limit && Hero3Visibility) {
+
+			// fade out hero 3 and fade in hero 2
+			else if (scrollPosition < hero2DisplayLimit && Hero3Visibility) {
 				// console.log("fade out hero 3 and fade in hero 1");
+				// hide hero 3
 				setHero3Visibility(false);
-				setHero2Visibility(true);
+				// don't render hero 3 block
 				setTimeout(() => {
-					setshowHero3(false);
+					setRenderHero3(false);
 				}, 500);
+
+				// show hero 2
+				setTimeout(() => {
+					setHero2Visibility(true);
+				}, 1000);
 			}
 			// fade out hero 2 and fade in hero 1
-			else if (scrollPosition < heroLimit && Hero2Visibility) {
+			else if (scrollPosition < heroDisplayLimit && Hero2Visibility) {
 				// console.log("fade out hero 2 fade in hero 1");
+				// hide hero 2
 				setHero2Visibility(false);
+				// show hero 1
 				setHeroVisibility(true);
+				// don't render hero 2
 				setTimeout(() => {
-					setshowHero2(false);
+					setRenderHero2(false);
 				}, 500);
 			}
 		};
 
+		// attaching the event to wheel movement
 		window.addEventListener("wheel", scrollUpdater);
 
 		// Cleanup function to remove the event listener when the component unmounts
@@ -103,54 +143,73 @@ function App() {
 		};
 	});
 
-	// effects the movement of the planet
+	// handles the movement speed, direction and restrictions of content block
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		const content = contentref.current;
-		const mover = (event: WheelEvent) => {
-			if (content) {
+		const contentBlock = contentBlockRef.current;
+
+		const contentBlockMover = (event: WheelEvent) => {
+			if (contentBlock) {
+				// acceing the deltaY value. If its negative we are scrolling down and if its postive we are scrolling down
 				const deltaY = event.deltaY;
 				let scrollSpeed = 1;
-				if (contentPos.current * -1 > hero3Limit) {
+				const maxTop = -1305;
+				const maxBottom = 90;
+
+				// increasing scrolling speed after we are done with fade effects
+				if (contentBlockPos.current * -1 > hero3DisplayLimit) {
 					scrollSpeed = 2;
 				}
 
-				// sets the direction of scrolling
-				if (deltaY > 0 && contentPos.current > -1305) {
-					allowContentScrollDown && setallowContentScrollDown(false)
-					contentPos.current -= scrollSpeed;
-				} else if (deltaY < 0 && contentPos.current < 90 && scrollUp) {
-					contentPos.current += scrollSpeed;
+				// controlling the scroll directions on deltaY value and cotrolling scroll restictions
+				if (deltaY > 0 && contentBlockPos.current > maxTop) {
+					// not allowing content scroll down till the content block have been fully scrolled up
+					allowContentScrollDown && setAllowContentScrollDown(false);
+					contentBlockPos.current -= scrollSpeed;
 				}
-				else if(deltaY > 0 && contentPos.current < -1305){
-					!allowContentScrollDown && setallowContentScrollDown(true)
+				// scrolling up and restircting up movement after we reach the limits
+				else if (
+					deltaY < 0 &&
+					contentBlockPos.current < maxBottom &&
+					allowContentBlockScrollUp
+				) {
+					contentBlockPos.current += scrollSpeed;
+				} else if (deltaY > 0 && contentBlockPos.current < maxTop) {
+					// allowing content scroll down when we max top
+					!allowContentScrollDown && setAllowContentScrollDown(true);
 				}
-				content.style.transform = `translateY(${contentPos.current}px)`;
 
-				// console.log(content.style.transform);
+				// updating transform of content Block to stimulate scrolling
+				contentBlock.style.transform = `translateY(${contentBlockPos.current}px)`;
 			}
 		};
-		window.addEventListener("wheel", mover);
+
+		// ataching the event
+		window.addEventListener("wheel", contentBlockMover);
 
 		// Cleanup function to remove the event listener when the component unmounts
 		return () => {
-			window.removeEventListener("wheel", mover);
+			window.removeEventListener("wheel", contentBlockMover);
 		};
-	}, [contentref, scrollUp,allowContentScrollDown]);
+	}, [
+		contentBlockRef,
+		allowContentBlockScrollUp,
+		allowContentScrollDown,
+		controller,
+	]);
 
+	// handles the control states for scroll restrictions
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
-		const content = content2ref.current;
+		const content = contentRef.current;
 
 		const scrollHandler = () => {
 			if (content) {
 				// if the scroller is at top
 				if (content.scrollTop === 0) {
-					// logic to reduce redundant state update
-					setscrollUp(true);
+					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
 				} else {
-					// logic to reduce redundant state update
-					setscrollUp(false);
+					allowContentBlockScrollUp && setAllowContentBlockScrollUp(false);
 				}
 			}
 		};
@@ -163,14 +222,14 @@ function App() {
 				content.removeEventListener("scroll", scrollHandler);
 			}
 		};
-	}, [content2ref]);
+	}, [contentRef, allowContentBlockScrollUp]);
 
 	return (
 		<div className="h-svh overflow-hidden">
 			<div className="fixed w-full top-0 z-10">
 				<Navbar />
 			</div>
-			{showHeros &&
+			{renderHeros &&
 				(showHero3 ? (
 					<div>
 						<div className="z-20 relative">
@@ -183,7 +242,7 @@ function App() {
 							</div>
 						</div>
 					</div>
-				) : showHero2 ? (
+				) : renderHero2 ? (
 					<div className="z-20 relative">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
@@ -205,14 +264,14 @@ function App() {
 					</div>
 				))}
 
-			<div className="pt-40" ref={contentref}>
+			<div className="pt-40" ref={contentBlockRef}>
 				<img src="images/main_bg.png" alt="" className="mt-48" />
 
 				<div
 					className={`${
 						allowContentScrollDown ? "overflow-y-auto" : "overflow-hidden"
 					} h-svh`}
-					ref={content2ref}
+					ref={contentRef}
 				>
 					<Blog />
 					<Projects />

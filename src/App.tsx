@@ -118,7 +118,7 @@ function App() {
 				// show hero 2
 				setTimeout(() => {
 					setHero2Visibility(true);
-				}, 1000);
+				}, 600);
 			}
 			// fade out hero 2 and fade in hero 1
 			else if (scrollPosition < heroDisplayLimit && Hero2Visibility) {
@@ -166,6 +166,7 @@ function App() {
 					// not allowing content scroll down till the content block have been fully scrolled up
 					allowContentScrollDown && setAllowContentScrollDown(false);
 					contentBlockPos.current -= scrollSpeed;
+
 				}
 				// scrolling up and restircting up movement after we reach the limits
 				else if (
@@ -174,8 +175,12 @@ function App() {
 					allowContentBlockScrollUp
 				) {
 					contentBlockPos.current += scrollSpeed;
-				} else if (deltaY > 0 && contentBlockPos.current < maxTop) {
-					// allowing content scroll down when we max top
+					
+				} 
+				
+				if (deltaY > 0 && contentBlockPos.current <= maxTop) {
+					// allowing content scroll down when we reach max top
+					
 					!allowContentScrollDown && setAllowContentScrollDown(true);
 				}
 
@@ -194,8 +199,7 @@ function App() {
 	}, [
 		contentBlockRef,
 		allowContentBlockScrollUp,
-		allowContentScrollDown,
-		controller,
+		allowContentScrollDown
 	]);
 
 	// handles the control states for scroll restrictions

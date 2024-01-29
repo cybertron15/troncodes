@@ -2,7 +2,7 @@ import React from "react";
 
 const Contact: React.FC = () => {
 	return (
-		<div className="text-center mt-10 mb-20">
+		<div className="text-center mt-10 mb-36">
 			<div className="font-roboto text-5xl">Contact</div>
 			<div className="font-roboto text-xl mt-3">
 				Hello random stranger from the internet. If you liked my portfolio and

@@ -35,15 +35,39 @@ function App() {
 	const [allowContentScrollDown, setAllowContentScrollDown] = useState(false);
 
 	// hero display limits. making them positive for convinience
-	const heroDisplayLimit = -93 * -1;
-	const hero2DisplayLimit = -210 * -1;
-	const hero3DisplayLimit = -390 * -1;
+	const heroDisplayLimit = 93;
+	const hero2DisplayLimit = 210;
+	const hero3DisplayLimit = 390;
 
-	const [controller, setcontroller] = useState(true);
+	const [transition, setTransition] = useState(false);
 
+	const navbarController = (navigateTo: string) => {
+		const contentBlock = contentBlockRef.current;
+		// updating transform of content Block to stimulate scrolling
+		if (contentBlock) {
+			setTransition(true)
+			switch (navigateTo) {
+				case 'skills':
+					contentBlockPos.current = -(hero2DisplayLimit + 1);
+					break;
+			
+				default:
+					break;
+			}
+			contentBlock.style.transform = `translateY(${contentBlockPos.current}px)`;
+			setTimeout(() => {
+				setTransition(false)
+			}, 500);
+
+			// dispatching the wheel event so all the other things like fade effects are triggered as neccesary
+			const wheelEvent = new WheelEvent('wheel', { bubbles: true });
+			contentBlock.dispatchEvent(wheelEvent)
+		}
+	};
 	// handles the fade effects of heros
 	useEffect(() => {
 		const scrollUpdater = () => {
+			
 			// Get the current position of content block
 			const scrollPosition = contentBlockPos.current * -1;
 
@@ -166,7 +190,7 @@ function App() {
 					// not allowing content scroll down till the content block have been fully scrolled up
 					allowContentScrollDown && setAllowContentScrollDown(false);
 					contentBlockPos.current -= scrollSpeed;
-
+					console.log(contentBlockPos.current);
 				}
 				// scrolling up and restircting up movement after we reach the limits
 				else if (
@@ -175,12 +199,11 @@ function App() {
 					allowContentBlockScrollUp
 				) {
 					contentBlockPos.current += scrollSpeed;
-					
-				} 
-				
+				}
+
 				if (deltaY > 0 && contentBlockPos.current <= maxTop) {
 					// allowing content scroll down when we reach max top
-					
+
 					!allowContentScrollDown && setAllowContentScrollDown(true);
 				}
 
@@ -196,11 +219,7 @@ function App() {
 		return () => {
 			window.removeEventListener("wheel", contentBlockMover);
 		};
-	}, [
-		contentBlockRef,
-		allowContentBlockScrollUp,
-		allowContentScrollDown
-	]);
+	}, [contentBlockRef, allowContentBlockScrollUp, allowContentScrollDown]);
 
 	// handles the control states for scroll restrictions
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -231,7 +250,7 @@ function App() {
 	return (
 		<div className="h-svh overflow-hidden">
 			<div className="fixed w-full top-0 z-10">
-				<Navbar />
+				<Navbar navbarController={navbarController} />
 			</div>
 			{renderHeros &&
 				(showHero3 ? (
@@ -268,7 +287,7 @@ function App() {
 					</div>
 				))}
 
-			<div className="pt-40" ref={contentBlockRef}>
+			<div className={`pt-40 ${transition? 'transition ease-in-out duration-500':''}`} ref={contentBlockRef}>
 				<img src="images/main_bg.png" alt="" className="mt-48" />
 
 				<div

@@ -15,12 +15,12 @@ function App() {
 	const [Hero2Visibility, setHero2Visibility] = useState(false);
 	const [Hero3Visibility, setHero3Visibility] = useState(false);
 
-	// states to handle the rendering of heros
-	const [renderHero2, setRenderHero2] = useState(false);
-	const [showHero3, setRenderHero3] = useState(false);
-
 	// state to handle the render of hero rendering block
 	const [renderHeros, setshowHeros] = useState(true);
+
+	// states to handle the rendering of heros
+	const [renderHero2, setRenderHero2] = useState(false);
+	const [renderHero3, setRenderHero3] = useState(false);
 
 	// refs for content and content block to capture the wheel events
 	const contentBlockRef = useRef<HTMLDivElement>(null);
@@ -38,6 +38,8 @@ function App() {
 	const heroDisplayLimit = 93;
 	const hero2DisplayLimit = 210;
 	const hero3DisplayLimit = 390;
+	const maxTop = -1305;
+	const maxBottom = 90;
 
 	const [transition, setTransition] = useState(false);
 
@@ -45,29 +47,117 @@ function App() {
 		const contentBlock = contentBlockRef.current;
 		// updating transform of content Block to stimulate scrolling
 		if (contentBlock) {
-			setTransition(true)
+			setTransition(true);
 			switch (navigateTo) {
-				case 'skills':
+				case "skills":
 					contentBlockPos.current = -(hero2DisplayLimit + 1);
+					!renderHeros && setshowHeros(true);
+					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true)
+					fo_hero2_fi_hero3();
 					break;
-			
+
+				case "home":
+					contentBlockPos.current = 0;
+					!renderHeros && setshowHeros(true);
+					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true)
+					setHero3Visibility(false)
+					setTimeout(() => {	
+						setRenderHero3(false)
+					}, 500);
+					setRenderHero2(false)
+					setHeroVisibility(true)
+					break;
+				
+				case "blog":
+					contentBlockPos.current = (maxTop + 1);
+					renderHeros && setshowHeros(false);
+					break
+
 				default:
 					break;
 			}
 			contentBlock.style.transform = `translateY(${contentBlockPos.current}px)`;
 			setTimeout(() => {
-				setTransition(false)
+				setTransition(false);
 			}, 500);
-
-			// dispatching the wheel event so all the other things like fade effects are triggered as neccesary
-			const wheelEvent = new WheelEvent('wheel', { bubbles: true });
-			contentBlock.dispatchEvent(wheelEvent)
 		}
 	};
+
 	// handles the fade effects of heros
+
+	// fade out hero 1 fade in hero 2
+	const fo_hero1_fi_hero2 = () => {
+		// console.log("fade out hero 1 fade in hero 2", renderHeros);
+		// hide hero
+		setHeroVisibility(false);
+		// render hero 2 block
+		setTimeout(() => {
+			setRenderHero2(true);
+		}, 500);
+		// show hero 2
+		setHero2Visibility(true);
+	};
+
+	// fade out hero 2 and fade in hero 3 or just fade in hero 3
+	const fo_hero2_fi_hero3 = () => {
+		// console.log("fade out hero 2 and fade in hero 3", showHeros);
+		// hide hero 2 if it's visible
+		if (Hero2Visibility) {
+			setHero2Visibility(false);
+		}
+		// render hero 3 block
+		// show hero 3
+		setTimeout(() => {
+			setHero3Visibility(true);
+		}, 600);
+		setTimeout(() => {
+			setRenderHero3(true);
+		}, 500);
+	};
+
+	// fade out hero 3 and don't render heros
+	const fo_hero3_dont_render_heros = () => {
+		// console.log("fade out hero 3 and don't render heros", showHeros);
+		// hide hero 3
+		setHero3Visibility(false);
+
+		// don't render block containing all the heros
+		setTimeout(() => {
+			setshowHeros(false);
+		}, 500);
+	};
+
+	// fade out hero 3 and fade in hero 2
+	const fo_hero3_fi_hero2 = () => {
+		// console.log("fade out hero 3 and fade in hero 1");
+		// hide hero 3
+		setHero3Visibility(false);
+		// don't render hero 3 block
+		setTimeout(() => {
+			setRenderHero3(false);
+		}, 500);
+
+		// show hero 2
+		setTimeout(() => {
+			setHero2Visibility(true);
+		}, 600);
+	};
+
+	// fade out hero 2 and fade in hero 1
+	const fo_hero2_fi_hero1 = () => {
+		// console.log("fade out hero 2 fade in hero 1");
+		// hide hero 2
+		setHero2Visibility(false);
+		// show hero 1
+		setHeroVisibility(true);
+		// don't render hero 2
+		setTimeout(() => {
+			setRenderHero2(false);
+		}, 500);
+	};
+
 	useEffect(() => {
 		const scrollUpdater = () => {
-			
 			// Get the current position of content block
 			const scrollPosition = contentBlockPos.current * -1;
 
@@ -78,16 +168,7 @@ function App() {
 				renderHeros &&
 				!Hero2Visibility
 			) {
-				// console.log("fade out hero 1 fade in hero 2", renderHeros);
-				// hide hero
-				setHeroVisibility(false);
-
-				// render hero 2 block
-				setTimeout(() => {
-					setRenderHero2(true);
-				}, 500);
-				// show hero 2
-				setHero2Visibility(true);
+				fo_hero1_fi_hero2();
 			}
 			// fade out hero 2 and fade in hero 3 or just fade in hero 3
 			else if (
@@ -96,31 +177,12 @@ function App() {
 				renderHeros &&
 				!Hero3Visibility
 			) {
-				// console.log("fade out hero 2 and fade in hero 3", showHeros);
-				// hide hero 2 if it's visible
-				if (Hero2Visibility) {
-					setHero2Visibility(false);
-				}
-				// render hero 3 block
-				// show hero 3
-				setTimeout(() => {
-					setHero3Visibility(true);
-				}, 600);
-				setTimeout(() => {
-					setRenderHero3(true);
-				}, 500);
+				fo_hero2_fi_hero3();
 			}
 
 			// fade out hero 3 and don't render heros
 			else if (scrollPosition > hero3DisplayLimit && Hero3Visibility) {
-				// console.log("fade out hero 3 and don't render heros", showHeros);
-				// hide hero 3
-				setHero3Visibility(false);
-
-				// don't render block containing all the heros
-				setTimeout(() => {
-					setshowHeros(false);
-				}, 500);
+				fo_hero3_dont_render_heros();
 			}
 
 			// render heros
@@ -131,30 +193,11 @@ function App() {
 
 			// fade out hero 3 and fade in hero 2
 			else if (scrollPosition < hero2DisplayLimit && Hero3Visibility) {
-				// console.log("fade out hero 3 and fade in hero 1");
-				// hide hero 3
-				setHero3Visibility(false);
-				// don't render hero 3 block
-				setTimeout(() => {
-					setRenderHero3(false);
-				}, 500);
-
-				// show hero 2
-				setTimeout(() => {
-					setHero2Visibility(true);
-				}, 600);
+				fo_hero3_fi_hero2();
 			}
 			// fade out hero 2 and fade in hero 1
 			else if (scrollPosition < heroDisplayLimit && Hero2Visibility) {
-				// console.log("fade out hero 2 fade in hero 1");
-				// hide hero 2
-				setHero2Visibility(false);
-				// show hero 1
-				setHeroVisibility(true);
-				// don't render hero 2
-				setTimeout(() => {
-					setRenderHero2(false);
-				}, 500);
+				fo_hero2_fi_hero1();
 			}
 		};
 
@@ -177,8 +220,6 @@ function App() {
 				// acceing the deltaY value. If its negative we are scrolling down and if its postive we are scrolling down
 				const deltaY = event.deltaY;
 				let scrollSpeed = 1;
-				const maxTop = -1305;
-				const maxBottom = 90;
 
 				// increasing scrolling speed after we are done with fade effects
 				if (contentBlockPos.current * -1 > hero3DisplayLimit) {
@@ -253,7 +294,7 @@ function App() {
 				<Navbar navbarController={navbarController} />
 			</div>
 			{renderHeros &&
-				(showHero3 ? (
+				(renderHero3 ? (
 					<div>
 						<div className="z-20 relative">
 							<div
@@ -287,7 +328,12 @@ function App() {
 					</div>
 				))}
 
-			<div className={`pt-40 ${transition? 'transition ease-in-out duration-500':''}`} ref={contentBlockRef}>
+			<div
+				className={`pt-40 ${
+					transition ? "transition ease-in-out duration-500" : ""
+				}`}
+				ref={contentBlockRef}
+			>
 				<img src="images/main_bg.png" alt="" className="mt-48" />
 
 				<div

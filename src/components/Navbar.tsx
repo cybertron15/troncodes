@@ -1,11 +1,17 @@
-import { useState} from "react";
+import React, { useState} from "react";
+interface NavbarProps {
+	navbarController: (navigateTo: string) => void;
+  };
 
-const Navbar: React.FC = () => {
+const Navbar:  React.FC<NavbarProps>  = ({ navbarController }) => {
 	const navItems = ['home','skills','blog','projects','experience','contact']
 	const [active, setactive] = useState('home')
 	const changeActive = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>)=> {
 		const target = event.currentTarget
-		setactive(target.innerText)
+		const section = target.innerText
+		setactive(section);
+		navbarController(section)
+		
 	}
 	return (
 		<nav className="flex justify-between mx-5 pt-5">

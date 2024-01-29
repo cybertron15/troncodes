@@ -13,7 +13,6 @@ const Hero3: React.FC = () => {
 				autoplay
 				autoplaySpeed={8}
 				speed={7}
-				onReady={() => console.log("I am ready")}
 			>
 				{skills.map((item) => (
 					<div

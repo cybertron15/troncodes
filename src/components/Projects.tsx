@@ -20,7 +20,7 @@ const Projects: React.FC = () => {
 	};
 	return (
 		<>
-			<div className="px-5">
+			<div className="px-5 mt-5">
 				<div className="flex justify-between mt-10">
 					<div className="font-roboto text-5xl ">
 						I{" "}

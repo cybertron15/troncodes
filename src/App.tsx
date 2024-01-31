@@ -25,6 +25,10 @@ function App() {
 	// refs for content and content block to capture the wheel events
 	const contentBlockRef = useRef<HTMLDivElement>(null);
 	const contentRef = useRef<HTMLDivElement>(null);
+	const projectsRef = useRef<HTMLDivElement>(null);
+	const blogsRef = useRef<HTMLDivElement>(null);
+	const experienceRef = useRef<HTMLDivElement>(null);
+	const contactRef = useRef<HTMLDivElement>(null);
 
 	// state to control the content block scrolling
 	const [allowContentBlockScrollUp, setAllowContentBlockScrollUp] =
@@ -45,34 +49,93 @@ function App() {
 
 	const navbarController = (navigateTo: string) => {
 		const contentBlock = contentBlockRef.current;
+
 		// updating transform of content Block to stimulate scrolling
 		if (contentBlock) {
 			setTransition(true);
+			const blogHeight = blogsRef.current?.getBoundingClientRect().height;
+			const projectHeight = projectsRef.current?.getBoundingClientRect().height;
+			const experienceHeight = experienceRef.current?.getBoundingClientRect().height;
+			const contactHeight = contactRef.current?.getBoundingClientRect().height;
+			const contentHeight = contentRef.current?.scrollHeight
+
 			switch (navigateTo) {
 				case "skills":
 					contentBlockPos.current = -(hero2DisplayLimit + 1);
 					!renderHeros && setshowHeros(true);
-					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true)
-					fo_hero2_fi_hero3();
+					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
+					setTimeout(() => {
+						fo_hero2_fi_hero3();
+					}, 200);
 					break;
 
 				case "home":
 					contentBlockPos.current = 0;
 					!renderHeros && setshowHeros(true);
-					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true)
-					setHero3Visibility(false)
-					setTimeout(() => {	
-						setRenderHero3(false)
+					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
+					setHero3Visibility(false);
+					setTimeout(() => {
+						setRenderHero3(false);
 					}, 500);
-					setRenderHero2(false)
-					setHeroVisibility(true)
+					setRenderHero2(false);
+					setHeroVisibility(true);
 					break;
-				
-				case "blog":
-					contentBlockPos.current = (maxTop + 1);
-					renderHeros && setshowHeros(false);
-					break
 
+				case "blog":
+					// to avoid displaying hero 1 or hero 2 when we directly skip to blog and than go back to skills
+					setHeroVisibility(false);
+					setHero2Visibility(false);
+					contentBlockPos.current = maxTop - 1;
+					renderHeros && setshowHeros(false);
+					contentRef.current?.scrollTo({
+						top: 0,
+						left: 0,
+						behavior: "smooth", // or 'auto' for instant scrolling
+					});
+					setAllowContentScrollDown(true);
+					break;
+
+				case "projects": {
+					contentBlockPos.current = maxTop - 1;
+					renderHeros && setshowHeros(false);
+					const scroll = blogHeight;
+					contentRef.current?.scrollTo({
+						top: scroll,
+						left: 0,
+						behavior: "smooth", // or 'auto' for instant scrolling
+					});
+					setAllowContentScrollDown(true);
+					break;
+				}
+
+				case "experience": {
+					contentBlockPos.current = maxTop - 1;
+					renderHeros && setshowHeros(false);
+					const scroll = blogHeight + projectHeight;
+
+					contentRef.current?.scrollTo({
+						top: scroll,
+						left: 0,
+						behavior: "smooth", // or 'auto' for instant scrolling
+					});
+					setAllowContentScrollDown(true);
+					break;
+				}
+
+				case "contact": {
+					contentBlockPos.current = maxTop - 1;
+					renderHeros && setshowHeros(false);
+					const scroll = contentHeight;
+					console.log(scroll);
+					
+					contentRef.current?.scrollTo({
+						top: scroll,
+						left: 0,
+						behavior: "smooth", // or 'auto' for instant scrolling
+					});
+					setAllowContentScrollDown(true);
+					break;
+				}
 				default:
 					break;
 			}
@@ -231,7 +294,7 @@ function App() {
 					// not allowing content scroll down till the content block have been fully scrolled up
 					allowContentScrollDown && setAllowContentScrollDown(false);
 					contentBlockPos.current -= scrollSpeed;
-					console.log(contentBlockPos.current);
+					// console.log(contentBlockPos.current);
 				}
 				// scrolling up and restircting up movement after we reach the limits
 				else if (
@@ -339,13 +402,21 @@ function App() {
 				<div
 					className={`${
 						allowContentScrollDown ? "overflow-y-auto" : "overflow-hidden"
-					} h-svh`}
+					} h-svh snap-y snap-proximity`}
 					ref={contentRef}
 				>
-					<Blog />
-					<Projects />
-					<Exprience />
-					<Contact />
+					<div className="pb-5" ref={blogsRef}>
+						<Blog />
+					</div>
+					<div className="pb-5" ref={projectsRef}>
+						<Projects />
+					</div>
+					<div className="pb-10" ref={experienceRef}>
+						<Exprience />
+					</div>
+					<div className="" ref={contactRef}>
+						<Contact />
+					</div>
 				</div>
 			</div>
 			<Footer />

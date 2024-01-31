@@ -12,7 +12,7 @@ const Exprience: React.FC = () => {
 	return (
 		<>
 			<div className="px-5">
-				<div className="flex justify-between mt-10">
+				<div className="flex justify-between">
 					<div className="font-roboto text-5xl ">I have been to places</div>
 					<a
 						href="files/PalashDhavleResume.pdf"

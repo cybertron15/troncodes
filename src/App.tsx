@@ -111,13 +111,15 @@ function App() {
 				case "experience": {
 					contentBlockPos.current = maxTop - 1;
 					renderHeros && setshowHeros(false);
-					const scroll = blogHeight + projectHeight;
-
-					contentRef.current?.scrollTo({
-						top: scroll,
-						left: 0,
-						behavior: "smooth", // or 'auto' for instant scrolling
-					});
+					if (blogHeight && projectHeight) {
+						const scroll = blogHeight + projectHeight;
+						
+						contentRef.current?.scrollTo({
+							top: scroll,
+							left: 0,
+							behavior: "smooth", // or 'auto' for instant scrolling
+						});
+					}
 					setAllowContentScrollDown(true);
 					break;
 				}
@@ -126,7 +128,6 @@ function App() {
 					contentBlockPos.current = maxTop - 1;
 					renderHeros && setshowHeros(false);
 					const scroll = contentHeight;
-					console.log(scroll);
 					
 					contentRef.current?.scrollTo({
 						top: scroll,

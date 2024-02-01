@@ -386,7 +386,7 @@ function App() {
 								HeroVisibility ? "opacity-100" : "opacity-0"
 							}`}
 						>
-							<Hero />
+							<Hero navbarController={navbarController}/>
 						</div>
 					</div>
 				))}

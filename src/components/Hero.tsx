@@ -1,6 +1,8 @@
 import { ChevronDown } from "lucide-react";
-
-const Hero: React.FC = () => {
+interface HeroProps {
+	navbarController: (navigateTo: string) => void;
+  };
+const Hero: React.FC<HeroProps>  = ({ navbarController }) => {
 	return (
 		<div className="text-center fixed z-20 w-full mt-16">
 			<div className="font-roboto text-8xl mt-16">
@@ -13,6 +15,7 @@ const Hero: React.FC = () => {
 			<button
 				type="button"
 				className="bg-orange-500 text-2xl px-6 pt-1 pb-1 rounded-lg mt-3 cursor-pointer hover:scale-105"
+				onClick={()=>navbarController("contact")}
 			>
 				Hire me
 			</button>

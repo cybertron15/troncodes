@@ -12,13 +12,13 @@ const skills: Skills[] = [
         name: "Django",
         img: "django.png"
     },
-    // {
-    //     name: "Flask",
-    //     img: "flask.png"
-    // },
+    {
+        name: "Flask",
+        img: "flask.png"
+    },
     {
         name: "Fast API",
-        img: "FastAPI.jpg"
+        img: "FastAPI.png"
     },
     {
         name: "JavaScript",
@@ -29,8 +29,28 @@ const skills: Skills[] = [
         img: "ts.png"
     },
     {
+        name: "Node js",
+        img: "node.png"
+    },
+    {
         name: "React",
         img: "react.png"
+    },
+    {
+        name: "Redux",
+        img: "redux.png"
+    },
+    {
+        name: "Electron JS",
+        img: "electron.png"
+    },
+    {
+        name: "HTML",
+        img: "html-5.png"
+    },
+    {
+        name: "CSS",
+        img: "css.jpg"
     },
     {
         name: "Tailwind",
@@ -41,14 +61,37 @@ const skills: Skills[] = [
         img: "radix.png"
     },
     {
-        name: "PaLM",
-        img: "PaLM.png"
-    }, 
+        name: "SQL",
+        img: "sql.png"
+    },
+    {
+        name: "SQLite",
+        img: "sqlite.png"
+    },
+    {
+        name: "MongoDB",
+        img: "mongodb.png"
+    },
     {
         name: "Mongoose JS",
         img: "mongoosejs.png"
+    },
+    {
+        name: "Git",
+        img: "git.png"
+    },
+    {
+        name: "GitHub",
+        img: "github.png"
+    },
+    {
+        name: "Docker",
+        img: "docker.png"
+    },
+    {
+        name: "PaLM",
+        img: "PaLM.png"
     }
-
 ]
 
 export default skills

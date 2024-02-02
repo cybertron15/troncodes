@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
 			<div className="font-roboto text-xl">
 				can fill this form to reach out to me.
 			</div>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit} method="POST">
 				<div className="flex flex-col w-full gap-3 justify-center items-center mt-5">
 					<input
 						type="text"

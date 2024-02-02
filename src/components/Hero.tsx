@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps>  = ({ navbarController }) => {
 			>
 				Hire me
 			</button>
-			<div className="mt-2">Know more</div>
+			<div className="mt-2">Scroll to know more</div>
 			<div className="flex justify-center mt-4">
 				<div className="animate-bounce">
 					<ChevronDown width={50} height={50}/>

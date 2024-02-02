@@ -96,6 +96,8 @@ function App() {
 					break;
 
 				case "projects": {
+					setHeroVisibility(false);
+					setHero2Visibility(false);
 					contentBlockPos.current = maxTop - 1;
 					renderHeros && setshowHeros(false);
 					const scroll = blogHeight;
@@ -109,6 +111,8 @@ function App() {
 				}
 
 				case "experience": {
+					setHeroVisibility(false);
+					setHero2Visibility(false);
 					contentBlockPos.current = maxTop - 1;
 					renderHeros && setshowHeros(false);
 					if (blogHeight && projectHeight) {
@@ -125,6 +129,8 @@ function App() {
 				}
 
 				case "contact": {
+					setHeroVisibility(false);
+					setHero2Visibility(false);
 					contentBlockPos.current = maxTop - 1;
 					renderHeros && setshowHeros(false);
 					const scroll = contentHeight;

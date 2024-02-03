@@ -17,7 +17,7 @@ const ImageDisplay: React.FC<ImageDisplayProps> = ({images,project}) => {
 				<img
 					src={`images/projects/${project}/${currentPicture}`}
 					alt=""
-					className="object-cover rounded-lg w-full h-full"
+					className="object-center rounded-lg w-full h-full"
 				/>
 			</div>
 			<div className="flex justify-between gap-5 w-full cursor-pointer">

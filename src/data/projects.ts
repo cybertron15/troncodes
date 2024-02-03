@@ -21,18 +21,21 @@ const projects: Project[] = [
 			"tailwind.png",
 			"PaLM.png",
 		],
-		images: ["login.png", "dashboard.png", "main_bg.jpg"],
+		images: ["login.png", "dashboard.png", "dashboard2.png"],
 	},
 	{
-		title: "Air Brush",
-		name: "airbrush",
-		desc: "Effortlessly draw on-screen using gestures, naturally control the UI with hand movements, and experience seamless integration of gestures with the interface.",
+		title: "BMS",
+		name: "BMS",
+		desc: "A specialized desktop application meticulously crafted for efficient management of various business operations, comprehensive employee data handling, and streamlined generation of integrated bills. This application leverages the power of graphical data visualization to provide enhanced insights, facilitating well-informed decision-making processes. With an intuitive user interface and robust functionality, it ensures a specialized and user-friendly experience, promoting productivity and organizational efficiency.",
 		techStack: [
-			"python.png",
-			"mediapipe.png",
-			"opencv.png"
+			"electron.png",
+			"node.png",
+			"javascript.png",
+			"html-5.png",
+			"css.jpg",
+			"chartsjs.png"
 		],
-		images: ["login.png", "dashboard.png", "main_bg.jpg"],
+		images: ["login.png", "dashboard.png", "billings.png"],
 	},
 ];
 

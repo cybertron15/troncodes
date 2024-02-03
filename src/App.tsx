@@ -55,8 +55,8 @@ function App() {
 			setTransition(true);
 			const blogHeight = blogsRef.current?.getBoundingClientRect().height;
 			const projectHeight = projectsRef.current?.getBoundingClientRect().height;
-			const experienceHeight = experienceRef.current?.getBoundingClientRect().height;
-			const contactHeight = contactRef.current?.getBoundingClientRect().height;
+			// const experienceHeight = experienceRef.current?.getBoundingClientRect().height;
+			// const contactHeight = contactRef.current?.getBoundingClientRect().height;
 			const contentHeight = contentRef.current?.scrollHeight
 
 			switch (navigateTo) {

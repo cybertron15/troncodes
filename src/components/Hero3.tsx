@@ -1,7 +1,7 @@
-import { useRef, useEffect } from "react";
+// import { useRef, useEffect } from "react";
 import ScrollCarousel from "scroll-carousel-react";
 import skills from "../data/skills";
-import TechTile from "./TechTile";
+// import TechTile from "./TechTile";
 
 const Hero3: React.FC = () => {
 	return (

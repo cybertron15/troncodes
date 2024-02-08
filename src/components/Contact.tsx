@@ -19,7 +19,7 @@ const Contact: React.FC = () => {
 					href="files/PalashDhavleResume.pdf"
 					target="_blank"
 					rel="noreferrer"
-					className="underline"
+					className="underline text-orange-400"
 				>
 					resume
 				</a>

@@ -4,7 +4,7 @@ interface HeroProps {
   };
 const Hero: React.FC<HeroProps>  = ({ navbarController }) => {
 	return (
-		<div className="text-center fixed z-20 w-full mt-16">
+		<div className="text-center fixed w-full mt-16">
 			<div className="font-roboto text-8xl mt-16">
 				Welcome to <span className="font-pacifico">TronCodes</span>
 			</div>

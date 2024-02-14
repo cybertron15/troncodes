@@ -366,7 +366,7 @@ function App() {
 			{renderHeros &&
 				(renderHero3 ? (
 					<div>
-						<div className="z-20 relative">
+						<div className="relative">
 							<div
 								className={`transition-opacity duration-500 ease-in-out ${
 									Hero3Visibility ? "opacity-100" : "opacity-0"
@@ -377,7 +377,7 @@ function App() {
 						</div>
 					</div>
 				) : renderHero2 ? (
-					<div className="z-20 relative">
+					<div className="relative">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								Hero2Visibility ? "opacity-100" : "opacity-0"
@@ -387,7 +387,7 @@ function App() {
 						</div>
 					</div>
 				) : (
-					<div className="z-20">
+					<div className="">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								HeroVisibility ? "opacity-100" : "opacity-0"
@@ -399,7 +399,7 @@ function App() {
 				))}
 
 			<div
-				className={`pt-40 ${
+				className={`pt-40 relative -z-20${
 					transition ? "transition ease-in-out duration-500" : ""
 				}`}
 				ref={contentBlockRef}

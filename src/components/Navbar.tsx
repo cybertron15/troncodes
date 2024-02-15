@@ -9,7 +9,10 @@ interface NavbarProps {
 const Navbar:  React.FC<NavbarProps>  = ({ navbarController }) => {
 	const navItems = ['home','skills','blog','projects','experience','contact']
 	const [active, setactive] = useState('home')
-	const [showNavbar, setshowNavbar] = useState(true)
+	const mediumScreenSize = 768
+	const [showNavbar, setshowNavbar] = useState(window.innerWidth< mediumScreenSize?false:true)
+	console.log(window.innerWidth);
+	
 	const changeActive = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>)=> {
 		const target = event.currentTarget
 		const section = target.innerText
@@ -27,8 +30,6 @@ const Navbar:  React.FC<NavbarProps>  = ({ navbarController }) => {
 				<div className={"font-pacifico text-3xl cursor-pointer transform"}>TronCodes</div>
 				<button className="md:hidden" type="button" onClick={()=>{
 					setshowNavbar(!showNavbar)
-					console.log(showNavbar);
-					
 				}}>
 					{showNavbar? <X/>:
 					<Menu />}

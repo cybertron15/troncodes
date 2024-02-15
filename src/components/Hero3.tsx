@@ -4,9 +4,17 @@ import skills from "../data/skills";
 // import TechTile from "./TechTile";
 
 const Hero3: React.FC = () => {
+	let chevronSize = 0
+	const mediumScreenSize = 768
+	if (window.innerWidth < mediumScreenSize){
+		chevronSize = 30
+	}
+		else{
+		chevronSize = 50
+	}
 	return (
 		<div className="text-center fixed w-full mt-24">
-			<div className="font-roboto text-5xl">
+			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl">
 				along with debts I have these skills
 			</div>
 			<ScrollCarousel
@@ -17,14 +25,14 @@ const Hero3: React.FC = () => {
 				{skills.map((item) => (
 					<div
 						key={item.name}
-						className="rounded h-48 w-40 mx-7 flex flex-col justify-center items-center mt-10"
+						className="rounded lg:h-48 lg:w-40 h-30 w-24 mx-7 flex flex-col justify-center items-center mt-10"
 					>
 						<img
 							src={`images/techstack/${item.img}`}
 							alt="icon"
-							className="object-contain rounded-xl w-32 h-32 hover:scale-105 transition-transform duration-300 transform cursor-pointer hover:ring-1 ring-orange-500"
+							className="object-contain rounded-xl lg:w-32 lg:h-32 h-24 w-24 hover:scale-105 transition-transform duration-300 transform cursor-pointer hover:ring-1 ring-orange-500"
 						/>
-						<div className="mt-2 text-2xl">
+						<div className="mt-2 md:text-xl lg:text-2xl text-sm">
 							{item.name}
 						</div>
 					</div>

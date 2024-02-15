@@ -18,8 +18,8 @@ const Navbar:  React.FC<NavbarProps>  = ({ navbarController }) => {
 		
 	}
 	return (
-		<nav className={`md:flex md:justify-between md:px-5 ${showNavbar && "bg-black"} pt-5` }>
-			<div className={`flex w-full justify-between ${showNavbar && "bg-black"} px-5`}>
+		<nav className={`md:flex md:justify-between md:px-5 ${showNavbar && "bg-black"} pt-5 md:bg-transparent` }>
+			<div className="flex w-full justify-between px-5">
 				{/* this component is placed outisde the parralax component of react-spring which i am using in app component
 				the parrallax component has an image inside which i want to scroll up faster as I scroll but the problem was when the
 				image reached the top of the page the below div with TronCodes was hiding behind the image and for some weird reason
@@ -35,7 +35,7 @@ const Navbar:  React.FC<NavbarProps>  = ({ navbarController }) => {
 				</button>
 			</div>
 			{showNavbar && 
-			<ul className="md:flex-row md:gap-10 md:bg-transparent md:pt-0 text-xl font-roboto mt-auto flex flex-col gap-8 min-h-fit bg-black pt-5 ps-6">
+			<ul className="md:flex-row md:gap-10 md:bg-transparent md:pt-0 text-xl font-roboto mt-auto flex flex-col gap-8 min-h-fit bg-black p-5 ps-6">
 				{navItems.map((item:string)=>{
 					return <li key={item} onClick={changeActive} onKeyDown={(event)=>changeActive(event)} className={`hover:text-orange-500 hover:md:scale-110 cursor-pointer transition-transform duration-300 transform ${item===active && "text-orange-500"}`}>{item}</li>
 				})}

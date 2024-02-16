@@ -11,7 +11,6 @@ const Navbar:  React.FC<NavbarProps>  = ({ navbarController }) => {
 	const [active, setactive] = useState('home')
 	const mediumScreenSize = 768
 	const [showNavbar, setshowNavbar] = useState(window.innerWidth< mediumScreenSize?false:true)
-	console.log(window.innerWidth);
 	
 	const changeActive = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>)=> {
 		const target = event.currentTarget
@@ -31,8 +30,8 @@ const Navbar:  React.FC<NavbarProps>  = ({ navbarController }) => {
 				<button className="md:hidden" type="button" onClick={()=>{
 					setshowNavbar(!showNavbar)
 				}}>
-					{showNavbar? <X/>:
-					<Menu />}
+					{showNavbar? <X className="pointer"/>:
+					<Menu className="pointer"/>}
 				</button>
 			</div>
 			{showNavbar && 

@@ -20,13 +20,23 @@ const Hero: React.FC<HeroProps>  = ({ navbarController }) => {
 				I code, Therefore I am not broke.
 			</div>
 			<div className="font-roboto md:text-2xl sm:text-xl text-sm italic mt-2">&mdash; Palash Dhavle</div>
+			<div className="flex gap-4 justify-center md:mt-1">
+			<a href="files/PalashDhavleResume.pdf"
+					target="_blank"
+					rel="noreferrer"
+					className="">
+				<button type="button" className="ring-1 ring-orange-400 text-orange-400 md:text-2xl text-sm px-6 pt-1 pb-1 rounded-lg mt-3 cursor-pointer hover:scale-105">
+					Resume
+				</button>
+			</a>
 			<button
 				type="button"
-				className="bg-orange-500 md:text-2xl text-sm px-6 pt-1 pb-1 rounded-lg mt-3 cursor-pointer hover:scale-105"
+				className="ring-1 ring-orange-500 bg-orange-500 md:text-2xl text-sm px-6 pt-1 pb-1 rounded-lg mt-3 cursor-pointer hover:scale-105"
 				onClick={()=>navbarController("contact")}
-			>
+				>
 				Hire me
 			</button>
+			</div>
 			<div className="mt-2 md:text-lg text-xs">Scroll to know more</div>
 			<div className="flex justify-center mt-4">
 			<div className="animate-bounce">

@@ -32,7 +32,7 @@ const Hero3: React.FC = () => {
 						<img
 							src={`images/techstack/${item.img}`}
 							alt="icon"
-							className="object-contain rounded-xl lg:w-32 lg:h-32 h-24 w-24 hover:scale-105 transition-transform duration-300 transform cursor-pointer hover:ring-1 ring-orange-500"
+							className="object-contain rounded-xl lg:w-32 lg:h-32 h-20 w-20 hover:scale-105 transition-transform duration-300 transform cursor-pointer hover:ring-1 ring-orange-500"
 						/>
 						<div className="mt-2 md:text-xl lg:text-2xl text-sm">
 							{item.name}

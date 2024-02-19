@@ -20,8 +20,8 @@ const Exprience: React.FC = () => {
 						rel="noreferrer"
 						className="underline flex gap-1"
 					>
-						<span className="text-lg mt-auto">Resume</span>{" "}
-						<span className="mt-auto">
+						<span className="text-lg mt-auto animate-pulse">Resume</span>{" "}
+						<span className="mt-auto animate-pulse">
 							<ArrowBigDownDash className="pe-0" />
 						</span>
 					</a>
@@ -138,7 +138,7 @@ const Exprience: React.FC = () => {
 								<div className="flex flex-wrap gap-5 w-full overflow-y-auto h-14 mt-2">
 									{exp.techStack.map((tech) => {
 										return (
-											<TechTile tech={tech} key={tech} dimensions="11" />
+											<TechTile tech={tech.name} key={tech.name} img={tech.img} link={tech.link} dimensions="11" />
 										);
 									})}
 								</div>

@@ -85,7 +85,7 @@ const Projects: React.FC = () => {
 										</div>
 										<div className="flex flex-wrap gap-5 w-full overflow-y-auto h-20">
 											{project.techStack.map((tech) => {
-												return <TechTile tech={tech} key={tech} dimensions={"14"}/>;
+												return <TechTile tech={tech.name} key={tech.name} link={tech.link} img={tech.img} dimensions={"14"}/>;
 											})}
 										</div>
 										<hr className="to-white my-4" />

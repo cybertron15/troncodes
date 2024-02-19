@@ -23,9 +23,11 @@ const Hero3: React.FC = () => {
 				speed={7}
 			>
 				{skills.map((item) => (
-					<div
+					<a
 						key={item.name}
 						className="rounded lg:h-48 lg:w-40 h-30 w-24 mx-7 flex flex-col justify-center items-center mt-10"
+						href={item.link}
+						target="blank"
 					>
 						<img
 							src={`images/techstack/${item.img}`}
@@ -35,7 +37,7 @@ const Hero3: React.FC = () => {
 						<div className="mt-2 md:text-xl lg:text-2xl text-sm">
 							{item.name}
 						</div>
-					</div>
+					</a>
 				))}
 			</ScrollCarousel>
 		</div>

@@ -153,6 +153,12 @@ function App() {
 		}
 	};
 
+	const windowHieght = window.innerHeight
+	const adjustmentPer = 0.20
+	const adjustBgMargin = windowHieght * adjustmentPer
+	console.log(adjustBgMargin);
+	
+	
 	// handles the fade effects of heros
 
 	// fade out hero 1 fade in hero 2
@@ -360,13 +366,14 @@ function App() {
 
 	return (
 		<div className="h-svh overflow-hidden">
-			<div className="fixed w-full top-0 z-10">
+			<div className="fixed w-full top-0 z-20">
 				<Navbar navbarController={navbarController} />
 			</div>
 			{renderHeros &&
-				(renderHero3 ? (
+				<div className="mt-10 sm: md: xl: 2xl:">
+				{(renderHero3 ? (
 					<div>
-						<div className="relative">
+						<div className="relative z-10">
 							<div
 								className={`transition-opacity duration-500 ease-in-out ${
 									Hero3Visibility ? "opacity-100" : "opacity-0"
@@ -377,7 +384,7 @@ function App() {
 						</div>
 					</div>
 				) : renderHero2 ? (
-					<div className="relative">
+					<div className="relative z-10">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								Hero2Visibility ? "opacity-100" : "opacity-0"
@@ -387,7 +394,7 @@ function App() {
 						</div>
 					</div>
 				) : (
-					<div className="">
+					<div className="z-10 relative">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								HeroVisibility ? "opacity-100" : "opacity-0"
@@ -396,15 +403,18 @@ function App() {
 							<Hero navbarController={navbarController}/>
 						</div>
 					</div>
-				))}
+					))}
+				</div>
+				}
 
 			<div
-				className={`pt-40 relative -z-20${
+				className={`relative ${
 					transition ? "transition ease-in-out duration-500" : ""
 				}`}
 				ref={contentBlockRef}
 			>
-				<img src="images/main_bg.png" alt="" className="mt-48" />
+				{/* <img src="images/main_bg.png" alt="" className={`realative top-[${adjustBgMargin}px] -z-30`} /> */}
+				<img src="images/main_bg.png" alt="" className="mt-[70vh] sm:mt-[60vh] md:mt-[50vh] 2xl:mt-[40vh]" />
 
 				<div
 					className={`${

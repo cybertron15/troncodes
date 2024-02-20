@@ -42,7 +42,11 @@ function App() {
 	const heroDisplayLimit = 93;
 	const hero2DisplayLimit = 210;
 	const hero3DisplayLimit = 390;
-	const maxTop = -1305;
+	const windowHieght = window.innerHeight
+	const adjustmentPer = 0.20
+	const adjustBgMargin = windowHieght * adjustmentPer
+	console.log(adjustBgMargin);
+	const maxTop = 40 - windowHieght
 	const maxBottom = 90;
 
 	const [transition, setTransition] = useState(false);
@@ -153,10 +157,6 @@ function App() {
 		}
 	};
 
-	const windowHieght = window.innerHeight
-	const adjustmentPer = 0.20
-	const adjustBgMargin = windowHieght * adjustmentPer
-	console.log(adjustBgMargin);
 	
 	
 	// handles the fade effects of heros

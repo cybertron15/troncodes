@@ -12,8 +12,8 @@ const Hero: React.FC<HeroProps>  = ({ navbarController }) => {
 		chevronSize = 50
 	}
 	return (
-		<div className="text-center fixed w-full mt-16">
-			<div className="font-roboto md:text-7xl lg:text-8xl sm:text-5xl text-3xl mt-16">
+		<div className="text-center w-full">
+			<div className="font-roboto md:text-7xl lg:text-8xl sm:text-5xl text-3xl">
 				Welcome to <span className="font-pacifico">TronCodes</span>
 			</div>
 			<div className="font-roboto md:text-3xl sm:text-2xl text-lg md:mt-4 mt-2">

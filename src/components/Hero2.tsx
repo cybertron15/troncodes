@@ -11,8 +11,8 @@ const Hero2: React.FC = () => {
 		chevronSize = 50
 	}
 	return (
-		<div className="text-center fixed w-full mt-16">
-			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl mt-28">
+		<div className="text-center w-full">
+			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl">
 				Whether you're looking for a skilled freelancer or a dedicated team
 			</div>
 			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl mt-2">

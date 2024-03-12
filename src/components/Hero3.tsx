@@ -13,7 +13,7 @@ const Hero3: React.FC = () => {
 		chevronSize = 50
 	}
 	return (
-		<div className="text-center fixed w-full mt-24">
+		<div className="text-center w-full">
 			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl">
 				along with debts I have these skills
 			</div>

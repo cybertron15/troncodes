@@ -48,9 +48,6 @@ function App() {
 	// const [transition, setTransition] = useState(false);
 
 	const scrollHandler = (scrollPer: number | null = null)=>{
-		const contentBlock = contentBlockRef.current
-		console.log(contentBlock?.scrollHeight, windowHieght);
-		
 		window?.scrollTo({
 			top: windowHieght * (scrollPer!==null?scrollPer: windowHieght),
 			left: 0,
@@ -275,11 +272,11 @@ function App() {
 		};
 
 		// attaching the event to wheel movement
-		window.addEventListener("scroll", scrollUpdater);
+		// window.addEventListener("scroll", scrollUpdater);
 
 		// Cleanup function to remove the event listener when the component unmounts
 		return () => {
-			window.removeEventListener("scroll", scrollUpdater);
+			// window.removeEventListener("scroll", scrollUpdater);
 		};
 	});
 

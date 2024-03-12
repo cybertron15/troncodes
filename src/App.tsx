@@ -36,45 +36,48 @@ function App() {
 	const contentBlockPos = useRef<number>(0);
 
 	// state to control the content scrolling
-	const [allowContentScrollDown, setAllowContentScrollDown] = useState(false);
+	const [allowContentScrollDown, setAllowContentScrollDown] = useState(true);
 
 	// hero display limits. making them positive for convinience
 	const heroDisplayLimit = 93;
 	const hero2DisplayLimit = 210;
 	const hero3DisplayLimit = 390;
 	const windowHieght = window.innerHeight
-	const adjustmentPer = 0.20
-	const adjustBgMargin = windowHieght * adjustmentPer
-	console.log(adjustBgMargin);
-	const maxTop = 40 - windowHieght
-	const maxBottom = 90;
+	// const maxTop = 40 - windowHieght
+	// const maxBottom = 90;
+	// const [transition, setTransition] = useState(false);
 
-	const [transition, setTransition] = useState(false);
+	const scrollHandler = (scrollPer: number | null = null)=>{
+		const contentBlock = contentBlockRef.current
+		console.log(contentBlock?.scrollHeight, windowHieght);
+		
+		window?.scrollTo({
+			top: windowHieght * (scrollPer!==null?scrollPer: windowHieght),
+			left: 0,
+			behavior: 'smooth' // You can also use 'auto' or 'instant'
+		  });
+	}
 
 	const navbarController = (navigateTo: string) => {
-		const contentBlock = contentBlockRef.current;
-
 		// updating transform of content Block to stimulate scrolling
-		if (contentBlock) {
-			setTransition(true);
+			// setTransition(true);
 			const blogHeight = blogsRef.current?.getBoundingClientRect().height;
 			const projectHeight = projectsRef.current?.getBoundingClientRect().height;
 			// const experienceHeight = experienceRef.current?.getBoundingClientRect().height;
 			// const contactHeight = contactRef.current?.getBoundingClientRect().height;
 			const contentHeight = contentRef.current?.scrollHeight
-
 			switch (navigateTo) {
 				case "skills":
-					contentBlockPos.current = -(hero2DisplayLimit + 1);
 					!renderHeros && setshowHeros(true);
 					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
+					scrollHandler(0.20)
 					setTimeout(() => {
 						fo_hero2_fi_hero3();
 					}, 200);
 					break;
 
 				case "home":
-					contentBlockPos.current = 0;
+					scrollHandler(0.00)
 					!renderHeros && setshowHeros(true);
 					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
 					setHero3Visibility(false);
@@ -89,7 +92,7 @@ function App() {
 					// to avoid displaying hero 1 or hero 2 when we directly skip to blog and than go back to skills
 					setHeroVisibility(false);
 					setHero2Visibility(false);
-					contentBlockPos.current = maxTop - 1;
+					scrollHandler()
 					renderHeros && setshowHeros(false);
 					contentRef.current?.scrollTo({
 						top: 0,
@@ -102,7 +105,7 @@ function App() {
 				case "projects": {
 					setHeroVisibility(false);
 					setHero2Visibility(false);
-					contentBlockPos.current = maxTop - 1;
+					scrollHandler()
 					renderHeros && setshowHeros(false);
 					const scroll = blogHeight;
 					contentRef.current?.scrollTo({
@@ -117,7 +120,7 @@ function App() {
 				case "experience": {
 					setHeroVisibility(false);
 					setHero2Visibility(false);
-					contentBlockPos.current = maxTop - 1;
+					scrollHandler()
 					renderHeros && setshowHeros(false);
 					if (blogHeight && projectHeight) {
 						const scroll = blogHeight + projectHeight;
@@ -135,7 +138,7 @@ function App() {
 				case "contact": {
 					setHeroVisibility(false);
 					setHero2Visibility(false);
-					contentBlockPos.current = maxTop - 1;
+					scrollHandler()
 					renderHeros && setshowHeros(false);
 					const scroll = contentHeight;
 					
@@ -150,17 +153,10 @@ function App() {
 				default:
 					break;
 			}
-			contentBlock.style.transform = `translateY(${contentBlockPos.current}px)`;
-			setTimeout(() => {
-				setTransition(false);
-			}, 500);
-		}
+		
 	};
 
-	
-	
 	// handles the fade effects of heros
-
 	// fade out hero 1 fade in hero 2
 	const fo_hero1_fi_hero2 = () => {
 		// console.log("fade out hero 1 fade in hero 2", renderHeros);
@@ -236,6 +232,7 @@ function App() {
 		const scrollUpdater = () => {
 			// Get the current position of content block
 			const scrollPosition = contentBlockPos.current * -1;
+			
 
 			// fade out hero 1 fade in hero 2
 			if (
@@ -278,65 +275,65 @@ function App() {
 		};
 
 		// attaching the event to wheel movement
-		window.addEventListener("wheel", scrollUpdater);
+		window.addEventListener("scroll", scrollUpdater);
 
 		// Cleanup function to remove the event listener when the component unmounts
 		return () => {
-			window.removeEventListener("wheel", scrollUpdater);
+			window.removeEventListener("scroll", scrollUpdater);
 		};
 	});
 
 	// handles the movement speed, direction and restrictions of content block
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-	useEffect(() => {
-		const contentBlock = contentBlockRef.current;
+	// useEffect(() => {
+	// 	const contentBlock = contentBlockRef.current;
 
-		const contentBlockMover = (event: WheelEvent) => {
-			if (contentBlock) {
-				// acceing the deltaY value. If its negative we are scrolling down and if its postive we are scrolling down
-				const deltaY = event.deltaY;
-				let scrollSpeed = 1;
+	// 	const contentBlockMover = (event: WheelEvent) => {
+	// 		if (contentBlock) {
+	// 			// acceing the deltaY value. If its negative we are scrolling down and if its postive we are scrolling down
+	// 			const deltaY = event.deltaY;
+	// 			let scrollSpeed = 1;
 
-				// increasing scrolling speed after we are done with fade effects
-				if (contentBlockPos.current * -1 > hero3DisplayLimit) {
-					scrollSpeed = 2;
-				}
+	// 			// increasing scrolling speed after we are done with fade effects
+	// 			if (contentBlockPos.current * -1 > hero3DisplayLimit) {
+	// 				scrollSpeed = 2;
+	// 			}
 
-				// controlling the scroll directions on deltaY value and cotrolling scroll restictions
-				if (deltaY > 0 && contentBlockPos.current > maxTop) {
-					// not allowing content scroll down till the content block have been fully scrolled up
-					allowContentScrollDown && setAllowContentScrollDown(false);
-					contentBlockPos.current -= scrollSpeed;
-					// console.log(contentBlockPos.current);
-				}
-				// scrolling up and restircting up movement after we reach the limits
-				else if (
-					deltaY < 0 &&
-					contentBlockPos.current < maxBottom &&
-					allowContentBlockScrollUp
-				) {
-					contentBlockPos.current += scrollSpeed;
-				}
+	// 			// controlling the scroll directions on deltaY value and cotrolling scroll restictions
+	// 			if (deltaY > 0 && contentBlockPos.current > maxTop) {
+	// 				// not allowing content scroll down till the content block have been fully scrolled up
+	// 				allowContentScrollDown && setAllowContentScrollDown(false);
+	// 				contentBlockPos.current -= scrollSpeed;
+	// 				// console.log(contentBlockPos.current);
+	// 			}
+	// 			// scrolling up and restircting up movement after we reach the limits
+	// 			else if (
+	// 				deltaY < 0 &&
+	// 				contentBlockPos.current < maxBottom &&
+	// 				allowContentBlockScrollUp
+	// 			) {
+	// 				contentBlockPos.current += scrollSpeed;
+	// 			}
 
-				if (deltaY > 0 && contentBlockPos.current <= maxTop) {
-					// allowing content scroll down when we reach max top
+	// 			if (deltaY > 0 && contentBlockPos.current <= maxTop) {
+	// 				// allowing content scroll down when we reach max top
 
-					!allowContentScrollDown && setAllowContentScrollDown(true);
-				}
+	// 				!allowContentScrollDown && setAllowContentScrollDown(true);
+	// 			}
 
-				// updating transform of content Block to stimulate scrolling
-				contentBlock.style.transform = `translateY(${contentBlockPos.current}px)`;
-			}
-		};
+	// 			// updating transform of content Block to stimulate scrolling
+	// 			contentBlock.style.transform = `translateY(${contentBlockPos.current}px)`;
+	// 		}
+	// 	};
 
-		// ataching the event
-		window.addEventListener("wheel", contentBlockMover);
+	// 	// ataching the event
+	// 	window.addEventListener("wheel", contentBlockMover);
 
-		// Cleanup function to remove the event listener when the component unmounts
-		return () => {
-			window.removeEventListener("wheel", contentBlockMover);
-		};
-	}, [contentBlockRef, allowContentBlockScrollUp, allowContentScrollDown]);
+	// 	// Cleanup function to remove the event listener when the component unmounts
+	// 	return () => {
+	// 		window.removeEventListener("wheel", contentBlockMover);
+	// 	};
+	// }, [contentBlockRef, allowContentBlockScrollUp, allowContentScrollDown]);
 
 	// handles the control states for scroll restrictions
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -365,15 +362,13 @@ function App() {
 	}, [contentRef, allowContentBlockScrollUp]);
 
 	return (
-		<div className="h-svh overflow-hidden">
-			<div className="fixed w-full top-0 z-20">
-				<Navbar navbarController={navbarController} />
-			</div>
+		<div className="h-svh" ref={contentBlockRef}>
+
+			{/* Heros Section */}
 			{renderHeros &&
-				<div className="mt-10 sm: md: xl: 2xl:">
+				<div className="fixed top-0 pt-32 h-fit w-full">
 				{(renderHero3 ? (
 					<div>
-						<div className="relative z-10">
 							<div
 								className={`transition-opacity duration-500 ease-in-out ${
 									Hero3Visibility ? "opacity-100" : "opacity-0"
@@ -381,10 +376,8 @@ function App() {
 							>
 								<Hero3 />
 							</div>
-						</div>
 					</div>
 				) : renderHero2 ? (
-					<div className="relative z-10">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								Hero2Visibility ? "opacity-100" : "opacity-0"
@@ -392,9 +385,7 @@ function App() {
 						>
 							<Hero2 />
 						</div>
-					</div>
 				) : (
-					<div className="z-10 relative">
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								HeroVisibility ? "opacity-100" : "opacity-0"
@@ -402,24 +393,21 @@ function App() {
 						>
 							<Hero navbarController={navbarController}/>
 						</div>
-					</div>
 					))}
 				</div>
 				}
 
-			<div
-				className={`relative ${
-					transition ? "transition ease-in-out duration-500" : ""
-				}`}
-				ref={contentBlockRef}
-			>
-				{/* <img src="images/main_bg.png" alt="" className={`realative top-[${adjustBgMargin}px] -z-30`} /> */}
-				<img src="images/main_bg.png" alt="" className="mt-[70vh] sm:mt-[60vh] md:mt-[50vh] 2xl:mt-[40vh]" />
+			<div className="fixed w-full top-0 z-20">
+				<Navbar navbarController={navbarController} />
+			</div>
+			
+				<div className="pt-[80vh] h-[100vh]">
+				<img src="images/main_bg.png" alt="" className="relative -z-20" />
 
 				<div
 					className={`${
 						allowContentScrollDown ? "overflow-y-auto" : "overflow-hidden"
-					} h-svh snap-y snap-proximity`}
+					} h-[90vh] snap-y snap-proximity`}
 					ref={contentRef}
 				>
 					<div className="pb-5" ref={blogsRef}>
@@ -435,7 +423,8 @@ function App() {
 						<Contact />
 					</div>
 				</div>
-			</div>
+				</div>
+			{/* Footer section */}
 			<Footer />
 		</div>
 	);

@@ -36,121 +36,120 @@ function App() {
 	const contentBlockPos = useRef<number>(0);
 
 	// state to control the content scrolling
-	const [allowContentScrollDown, setAllowContentScrollDown] = useState(true);
+	const [allowContentScrollDown, setAllowContentScrollDown] = useState(false);
 
 	// hero display limits. making them positive for convinience
-	const heroDisplayLimit = 93;
-	const hero2DisplayLimit = 210;
-	const hero3DisplayLimit = 390;
-	const windowHieght = window.innerHeight
+	const heroDisplayLimit = 10;
+	const hero2DisplayLimit = 20;
+	const hero3DisplayLimit = 30;
+	const windowHieght = window.innerHeight;
 	// const maxTop = 40 - windowHieght
 	// const maxBottom = 90;
 	// const [transition, setTransition] = useState(false);
 
-	const scrollHandler = (scrollPer: number | null = null)=>{
+	const scrollHandler = (scrollPer: number | null = null) => {
 		window?.scrollTo({
-			top: windowHieght * (scrollPer!==null?scrollPer: windowHieght),
+			top: windowHieght * (scrollPer !== null ? scrollPer : windowHieght),
 			left: 0,
-			behavior: 'smooth' // You can also use 'auto' or 'instant'
-		  });
-	}
+			behavior: "smooth", // You can also use 'auto' or 'instant'
+		});
+	};
 
 	const navbarController = (navigateTo: string) => {
 		// updating transform of content Block to stimulate scrolling
-			// setTransition(true);
-			const blogHeight = blogsRef.current?.getBoundingClientRect().height;
-			const projectHeight = projectsRef.current?.getBoundingClientRect().height;
-			// const experienceHeight = experienceRef.current?.getBoundingClientRect().height;
-			// const contactHeight = contactRef.current?.getBoundingClientRect().height;
-			const contentHeight = contentRef.current?.scrollHeight
-			switch (navigateTo) {
-				case "skills":
-					!renderHeros && setshowHeros(true);
-					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
-					scrollHandler(0.20)
-					setTimeout(() => {
-						fo_hero2_fi_hero3();
-					}, 200);
-					break;
+		// setTransition(true);
+		const blogHeight = blogsRef.current?.getBoundingClientRect().height;
+		const projectHeight = projectsRef.current?.getBoundingClientRect().height;
+		// const experienceHeight = experienceRef.current?.getBoundingClientRect().height;
+		// const contactHeight = contactRef.current?.getBoundingClientRect().height;
+		const contentHeight = contentRef.current?.scrollHeight;
+		switch (navigateTo) {
+			case "skills":
+				!renderHeros && setshowHeros(true);
+				!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
+				scrollHandler(0.2);
+				setTimeout(() => {
+					fo_hero2_fi_hero3();
+				}, 200);
+				break;
 
-				case "home":
-					scrollHandler(0.00)
-					!renderHeros && setshowHeros(true);
-					!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
-					setHero3Visibility(false);
-					setTimeout(() => {
-						setRenderHero3(false);
-					}, 500);
-					setRenderHero2(false);
-					setHeroVisibility(true);
-					break;
+			case "home":
+				scrollHandler(0.0);
+				!renderHeros && setshowHeros(true);
+				!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
+				setHero3Visibility(false);
+				setTimeout(() => {
+					setRenderHero3(false);
+				}, 500);
+				setRenderHero2(false);
+				setHeroVisibility(true);
+				break;
 
-				case "blog":
-					// to avoid displaying hero 1 or hero 2 when we directly skip to blog and than go back to skills
-					setHeroVisibility(false);
-					setHero2Visibility(false);
-					scrollHandler()
-					renderHeros && setshowHeros(false);
-					contentRef.current?.scrollTo({
-						top: 0,
-						left: 0,
-						behavior: "smooth", // or 'auto' for instant scrolling
-					});
-					setAllowContentScrollDown(true);
-					break;
+			case "blog":
+				// to avoid displaying hero 1 or hero 2 when we directly skip to blog and than go back to skills
+				setHeroVisibility(false);
+				setHero2Visibility(false);
+				scrollHandler();
+				renderHeros && setshowHeros(false);
+				contentRef.current?.scrollTo({
+					top: 0,
+					left: 0,
+					behavior: "smooth", // or 'auto' for instant scrolling
+				});
+				setAllowContentScrollDown(true);
+				break;
 
-				case "projects": {
-					setHeroVisibility(false);
-					setHero2Visibility(false);
-					scrollHandler()
-					renderHeros && setshowHeros(false);
-					const scroll = blogHeight;
-					contentRef.current?.scrollTo({
-						top: scroll,
-						left: 0,
-						behavior: "smooth", // or 'auto' for instant scrolling
-					});
-					setAllowContentScrollDown(true);
-					break;
-				}
-
-				case "experience": {
-					setHeroVisibility(false);
-					setHero2Visibility(false);
-					scrollHandler()
-					renderHeros && setshowHeros(false);
-					if (blogHeight && projectHeight) {
-						const scroll = blogHeight + projectHeight;
-						
-						contentRef.current?.scrollTo({
-							top: scroll,
-							left: 0,
-							behavior: "smooth", // or 'auto' for instant scrolling
-						});
-					}
-					setAllowContentScrollDown(true);
-					break;
-				}
-
-				case "contact": {
-					setHeroVisibility(false);
-					setHero2Visibility(false);
-					scrollHandler()
-					renderHeros && setshowHeros(false);
-					const scroll = contentHeight;
-					
-					contentRef.current?.scrollTo({
-						top: scroll,
-						left: 0,
-						behavior: "smooth", // or 'auto' for instant scrolling
-					});
-					setAllowContentScrollDown(true);
-					break;
-				}
-				default:
-					break;
+			case "projects": {
+				setHeroVisibility(false);
+				setHero2Visibility(false);
+				scrollHandler();
+				renderHeros && setshowHeros(false);
+				const scroll = blogHeight;
+				contentRef.current?.scrollTo({
+					top: scroll,
+					left: 0,
+					behavior: "smooth", // or 'auto' for instant scrolling
+				});
+				setAllowContentScrollDown(true);
+				break;
 			}
-		
+
+			case "experience": {
+				setHeroVisibility(false);
+				setHero2Visibility(false);
+				scrollHandler();
+				renderHeros && setshowHeros(false);
+				if (blogHeight && projectHeight) {
+					const scroll = blogHeight + projectHeight;
+
+					contentRef.current?.scrollTo({
+						top: scroll,
+						left: 0,
+						behavior: "smooth", // or 'auto' for instant scrolling
+					});
+				}
+				setAllowContentScrollDown(true);
+				break;
+			}
+
+			case "contact": {
+				setHeroVisibility(false);
+				setHero2Visibility(false);
+				scrollHandler();
+				renderHeros && setshowHeros(false);
+				const scroll = contentHeight;
+
+				contentRef.current?.scrollTo({
+					top: scroll,
+					left: 0,
+					behavior: "smooth", // or 'auto' for instant scrolling
+				});
+				setAllowContentScrollDown(true);
+				break;
+			}
+			default:
+				break;
+		}
 	};
 
 	// handles the fade effects of heros
@@ -228,8 +227,18 @@ function App() {
 	useEffect(() => {
 		const scrollUpdater = () => {
 			// Get the current position of content block
-			const scrollPosition = contentBlockPos.current * -1;
+			// const scrollPosition = contentBlockPos.current * -1;
+			const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        	const scrollPosition = (window.scrollY / scrollableHeight) * 100;
+			console.log(window.scrollY ,scrollableHeight);
 			
+			// not allowing scroll in content area until we scroll all the way down
+			if (window.scrollY >= scrollableHeight){
+				setAllowContentScrollDown(true)
+			}
+			else{
+				setAllowContentScrollDown(false)
+			}
 
 			// fade out hero 1 fade in hero 2
 			if (
@@ -272,11 +281,11 @@ function App() {
 		};
 
 		// attaching the event to wheel movement
-		// window.addEventListener("scroll", scrollUpdater);
+		window.addEventListener("scroll", scrollUpdater);
 
 		// Cleanup function to remove the event listener when the component unmounts
 		return () => {
-			// window.removeEventListener("scroll", scrollUpdater);
+			window.removeEventListener("scroll", scrollUpdater);
 		};
 	});
 
@@ -360,12 +369,11 @@ function App() {
 
 	return (
 		<div className="h-svh" ref={contentBlockRef}>
-
 			{/* Heros Section */}
-			{renderHeros &&
+			{renderHeros && (
 				<div className="fixed top-0 pt-32 h-fit w-full">
-				{(renderHero3 ? (
-					<div>
+					{renderHero3 ? (
+						<div>
 							<div
 								className={`transition-opacity duration-500 ease-in-out ${
 									Hero3Visibility ? "opacity-100" : "opacity-0"
@@ -373,8 +381,8 @@ function App() {
 							>
 								<Hero3 />
 							</div>
-					</div>
-				) : renderHero2 ? (
+						</div>
+					) : renderHero2 ? (
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								Hero2Visibility ? "opacity-100" : "opacity-0"
@@ -382,23 +390,23 @@ function App() {
 						>
 							<Hero2 />
 						</div>
-				) : (
+					) : (
 						<div
 							className={`transition-opacity duration-500 ease-in-out ${
 								HeroVisibility ? "opacity-100" : "opacity-0"
 							}`}
 						>
-							<Hero navbarController={navbarController}/>
+							<Hero navbarController={navbarController} />
 						</div>
-					))}
+					)}
 				</div>
-				}
+			)}
 
 			<div className="fixed w-full top-0 z-20">
 				<Navbar navbarController={navbarController} />
 			</div>
-			
-				<div className="pt-[80vh] h-[100vh]">
+
+			<div className="pt-[80vh] h-[100vh]">
 				<img src="images/main_bg.png" alt="" className="relative -z-20" />
 
 				<div
@@ -420,7 +428,7 @@ function App() {
 						<Contact />
 					</div>
 				</div>
-				</div>
+			</div>
 			{/* Footer section */}
 			<Footer />
 		</div>

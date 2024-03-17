@@ -41,16 +41,25 @@ function App() {
 	// hero display limits. making them positive for convinience
 	const heroDisplayLimit = 10;
 	const hero2DisplayLimit = 20;
-	const hero3DisplayLimit = 50;
-	const windowHieght = window.innerHeight;
+	const hero3DisplayLimit = 35;
+	// const windowHieght = window.innerHeight;
+	let fullScroll : number
+
+	useEffect(() => {
+		// windowHieght = contentBlockRef.current?.scrollHeight;
+		fullScroll = document.body.scrollHeight - document.body.clientHeight;
+	});
 
 	const scrollHandler = (scrollPer: number | null = null) => {
-		console.log(windowHieght);
-		window?.scrollTo({
-			top: (scrollPer !== null ? scrollPer * windowHieght : windowHieght),
-			left: 0,
-			behavior: "smooth", // You can also use 'auto' or 'instant'
-		});
+		if (fullScroll) {
+			// console.log(scrollHeight * scrollPer, scrollHeight);
+			// console.log(document.body.scrollHeight , document.body.clientHeight,document.body.scrollHeight - document.body.clientHeight);
+			window?.scrollTo({
+				top: scrollPer !== null ? scrollPer * fullScroll : fullScroll,
+				left: 0,
+				behavior: "smooth", // You can also use 'auto' or 'instant'
+			});
+		}
 	};
 
 	const navbarController = (navigateTo: string) => {
@@ -63,29 +72,15 @@ function App() {
 		const contentHeight = contentRef.current?.scrollHeight;
 		switch (navigateTo) {
 			case "skills":
-				!renderHeros && setshowHeros(true);
-				!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
-				scrollHandler(0.30);
+				scrollHandler(0.2);
 				break;
 
 			case "home":
-				scrollHandler(0.0);
-				!renderHeros && setshowHeros(true);
-				!allowContentBlockScrollUp && setAllowContentBlockScrollUp(true);
-				setHero3Visibility(false);
-				setTimeout(() => {
-					setRenderHero3(false);
-				}, 500);
-				setRenderHero2(false);
-				setHeroVisibility(true);
+				scrollHandler(0);
 				break;
 
 			case "blog":
-				// to avoid displaying hero 1 or hero 2 when we directly skip to blog and than go back to skills
-				setHeroVisibility(false);
-				setHero2Visibility(false);
-				scrollHandler(null);
-				// setshowHeros(false);
+				scrollHandler();
 				contentRef.current?.scrollTo({
 					top: 0,
 					left: 0,
@@ -95,25 +90,18 @@ function App() {
 				break;
 
 			case "projects": {
-				setHeroVisibility(false);
-				setHero2Visibility(false);
 				scrollHandler();
-				setshowHeros(false);
 				const scroll = blogHeight;
 				contentRef.current?.scrollTo({
 					top: scroll,
 					left: 0,
 					behavior: "smooth", // or 'auto' for instant scrolling
 				});
-				setAllowContentScrollDown(true);
 				break;
 			}
 
 			case "experience": {
-				setHeroVisibility(false);
-				setHero2Visibility(false);
 				scrollHandler();
-				setshowHeros(false);
 				if (blogHeight && projectHeight) {
 					const scroll = blogHeight + projectHeight;
 
@@ -123,23 +111,17 @@ function App() {
 						behavior: "smooth", // or 'auto' for instant scrolling
 					});
 				}
-				setAllowContentScrollDown(true);
 				break;
 			}
 
 			case "contact": {
-				setHeroVisibility(false);
-				setHero2Visibility(false);
 				scrollHandler();
-				setshowHeros(false);
 				const scroll = contentHeight;
-
 				contentRef.current?.scrollTo({
 					top: scroll,
 					left: 0,
 					behavior: "smooth", // or 'auto' for instant scrolling
 				});
-				setAllowContentScrollDown(true);
 				break;
 			}
 			default:
@@ -150,18 +132,22 @@ function App() {
 	useEffect(() => {
 		const scrollUpdater = () => {
 			// Get the current position of content block
-			const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+
 			const scrollPosition = Math.round(
-				(window.scrollY / scrollableHeight) * 100,
+				(window.scrollY / fullScroll) * 100,
 			);
+			console.log(window.scrollY, fullScroll, scrollPosition);
+			// console.log(scrollPosition);
 
 			// not allowing scroll in content area until we scroll all the way down
-			if (window.scrollY >= scrollableHeight) {
+			// - 5 is just for adjustment
+			if (window.scrollY >= fullScroll - 5) {
 				setAllowContentScrollDown(true);
 			} else {
 				setAllowContentScrollDown(false);
 			}
 
+			// show hero 1
 			if (scrollPosition < heroDisplayLimit && scrollPosition > 0) {
 				setshowHeros(true);
 				setRenderHero1(true);
@@ -173,10 +159,16 @@ function App() {
 
 				setTimeout(() => {
 					setHeroVisibility(true);
-				}, 50);
-			} else if (
+				}, 100);
+
+				setTimeout(() => {
+					setshowHeros(true);
+				}, 500);
+			}
+			// show hero 2
+			if (
 				scrollPosition < hero2DisplayLimit &&
-				scrollPosition > heroDisplayLimit
+				scrollPosition >= heroDisplayLimit
 			) {
 				setshowHeros(true);
 				setRenderHero2(true);
@@ -189,12 +181,17 @@ function App() {
 
 				setTimeout(() => {
 					setHero2Visibility(true);
-				}, 20);
-			} else if (
+				}, 100);
+
+				setTimeout(() => {
+					setshowHeros(true);
+				}, 500);
+			}
+			// show hero 3
+			if (
 				scrollPosition < hero3DisplayLimit &&
-				scrollPosition > hero2DisplayLimit
+				scrollPosition >= hero2DisplayLimit
 			) {
-				
 				setshowHeros(true);
 				console.log(renderHeros);
 				setRenderHero3(true);
@@ -207,8 +204,15 @@ function App() {
 
 				setTimeout(() => {
 					setHero3Visibility(true);
-				}, 20);
-			} else if (scrollPosition > hero3DisplayLimit) {
+				}, 100);
+
+				setTimeout(() => {
+					setshowHeros(true);
+				}, 500);
+			}
+
+			// don't show heros
+			if (scrollPosition > hero3DisplayLimit && renderHeros) {
 				setHero3Visibility(false);
 				setTimeout(() => {
 					setshowHeros(false);
@@ -226,7 +230,7 @@ function App() {
 	});
 
 	return (
-		<div className="h-svh" ref={contentBlockRef}>
+		<div className="" ref={contentBlockRef}>
 			{/* Heros Section */}
 			{renderHeros && (
 				<div className="fixed top-0 pt-32 h-fit w-full">
@@ -274,7 +278,7 @@ function App() {
 				<div
 					className={`${
 						allowContentScrollDown ? "overflow-y-auto" : "overflow-hidden"
-					} h-[90vh] snap-y snap-proximity`}
+					} h-[90vh]`}
 					ref={contentRef}
 				>
 					<div className="pb-5" ref={blogsRef}>

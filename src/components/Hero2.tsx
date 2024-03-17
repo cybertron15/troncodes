@@ -12,10 +12,10 @@ const Hero2: React.FC = () => {
 	}
 	return (
 		<div className="text-center w-full">
-			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl">
+			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl mt-2 text-center">
 				Whether you're looking for a skilled freelancer or a dedicated team
-			</div>
-			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl mt-2">
+			{/* </div> */}
+			{/* <div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl "> */}
 			member. let's connect and bring your projects to life together.
 			</div>
 			

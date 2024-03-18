@@ -25,7 +25,7 @@ const Hero3: React.FC = () => {
 				{skills.map((item) => (
 					<a
 						key={item.name}
-						className="rounded lg:h-48 lg:w-40 h-30 w-24 mx-7 flex flex-col justify-center items-center mt-10"
+						className="rounded lg:h-48 lg:w-40 h-30 w-24 md:mx-7 flex flex-col justify-center items-center mt-10"
 						href={item.link}
 						target="blank"
 					>

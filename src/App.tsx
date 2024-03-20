@@ -22,6 +22,8 @@ function App() {
 	const [renderHero1, setRenderHero1] = useState(true);
 	const [renderHero2, setRenderHero2] = useState(false);
 	const [renderHero3, setRenderHero3] = useState(false);
+	const [cmFlag1, setcmFlag1] = useState(false);
+	const [cmFlag2, setcmFlag2] = useState(false);
 
 	// refs for content and content block to capture the wheel events
 	const contentBlockRef = useRef<HTMLDivElement>(null);
@@ -43,7 +45,8 @@ function App() {
 	const hero2DisplayLimit = 20;
 	const hero3DisplayLimit = 35;
 	// const windowHieght = window.innerHeight;
-	let fullScroll : number
+	let fullScroll: number;
+	let contentfullScroll: number;
 
 	useEffect(() => {
 		// windowHieght = contentBlockRef.current?.scrollHeight;
@@ -133,10 +136,7 @@ function App() {
 		const scrollUpdater = () => {
 			// Get the current position of content block
 
-			const scrollPosition = Math.round(
-				(window.scrollY / fullScroll) * 100,
-			);
-			console.log(window.scrollY, fullScroll, scrollPosition);
+			const scrollPosition = Math.round((window.scrollY / fullScroll) * 100);
 			// console.log(scrollPosition);
 
 			// not allowing scroll in content area until we scroll all the way down
@@ -193,7 +193,6 @@ function App() {
 				scrollPosition >= hero2DisplayLimit
 			) {
 				setshowHeros(true);
-				console.log(renderHeros);
 				setRenderHero3(true);
 
 				setHeroVisibility(false);
@@ -218,14 +217,40 @@ function App() {
 					setshowHeros(false);
 				}, 500);
 			}
+
+			if (scrollPosition >= 100) {
+				setcmFlag1(true);
+			} else {
+				setcmFlag1(false);
+			}
+			console.log(cmFlag1,cmFlag2);
 		};
 
+		const content = contentRef.current;
+
+		const contentScrollUpdater = () => {
+			if (content) {
+				contentfullScroll = content.scrollHeight - content.clientHeight;
+				const scrollPosition = Math.round((content.scrollTop / contentfullScroll) * 100);
+
+				if (scrollPosition >= 100) {
+					setcmFlag2(true);
+				} else {
+					setcmFlag2(false);
+				}
+			}
+			console.log(cmFlag1,cmFlag2);
+		};
+
+		
+		content?.addEventListener("scroll", contentScrollUpdater);
 		// attaching the event to scroll movement
 		window.addEventListener("scroll", scrollUpdater);
-
+		
 		// Cleanup function to remove the event listener when the component unmounts
 		return () => {
 			window.removeEventListener("scroll", scrollUpdater);
+			content?.removeEventListener("scroll", contentScrollUpdater);
 		};
 	});
 
@@ -288,7 +313,7 @@ function App() {
 						<Projects />
 					</div>
 					<div className="pb-10" ref={experienceRef}>
-						<Exprience />
+						{/* <Exprience /> */}
 					</div>
 					<div className="" ref={contactRef}>
 						<Contact />
@@ -296,7 +321,7 @@ function App() {
 				</div>
 			</div>
 			{/* Footer section */}
-			<Footer />
+			<Footer showMsg={[cmFlag1,cmFlag2]} />
 		</div>
 	);
 }

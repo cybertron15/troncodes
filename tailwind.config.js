@@ -12,6 +12,7 @@ export default {
       animation: {
         heartbeat: 'heartbeat 1s infinite',
         fadeout: 'fadeout 1s forwards',
+        fadein: 'fadein 500ms forwards',
       },
       keyframes: {
         heartbeat: {
@@ -22,6 +23,10 @@ export default {
         fadeout: {
           '0%': { opacity: '1' },
           '100%': { opacity: '0' },
+        },
+        fadein: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         }
       }
 

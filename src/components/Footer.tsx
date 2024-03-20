@@ -6,7 +6,7 @@ const Footer: React.FC<FooterProps> = ({ showMsg }) => {
 	return (
 		<div className="flex flex-col items-center fixed bottom-0 w-full z-20">
 			{showMsg[0] && showMsg[1] && (
-				<div className={"flex ms-44 animate-fadein"}>
+				<div className={"flex animate-fadein relative left-20 md:left-64 lg:left-72"}>
 					<img
 						src="images/arrow.png"
 						alt="arrow"

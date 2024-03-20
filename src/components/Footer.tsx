@@ -1,7 +1,24 @@
-const Footer: React.FC = () => {
+interface FooterProps {
+	showMsg: boolean[];
+}
+
+const Footer: React.FC<FooterProps> = ({ showMsg }) => {
 	return (
-		<div className="flex justify-center fixed bottom-0 w-full z-20">
-			<div className="flex justify-center gap-12 bg-slate-400 bg-opacity-25 pt-4 pb-2 w-1/3 rounded-t-full">
+		<div className="flex flex-col items-center fixed bottom-0 w-full z-20">
+			{showMsg[0] && showMsg[1] && (
+				<div className={"flex ms-44 animate-fadein"}>
+					<img
+						src="images/arrow.png"
+						alt="arrow"
+						className="w-20 h-12 mt-auto"
+					/>
+					<div className="relative text-lg lg:text-3xl font-caveat -rotate-12 bottom-10">
+						<p>You can also contact me</p>
+						<p>through my socials </p>
+					</div>
+				</div>
+			)}
+			<div className="flex justify-center md:gap-12 gap-8 bg-slate-400 bg-opacity-25 pt-4 pb-2 w-3/4 sm:w-3/4 md:w-1/2 lg:w-2/5 xl:w-1/3 rounded-t-full">
 				<a
 					href="https://github.com/cybertron15"
 					rel="noreferrer"
@@ -11,7 +28,8 @@ const Footer: React.FC = () => {
 					<img
 						src="images/socialmedia/github.png"
 						alt=""
-						style={{ width: "40px", height: "40px" }}
+						// style={{ width: "40px", height: "40px" }}
+						className="w-8 h-8 md:w-10 md:h-10"
 					/>
 				</a>
 				<a
@@ -23,7 +41,8 @@ const Footer: React.FC = () => {
 					<img
 						src="images/socialmedia/instagram.png"
 						alt=""
-						style={{ width: "40px", height: "40px" }}
+						// style={{ width: "40px", height: "40px" }}
+						className="w-8 h-8 md:w-10 md:h-10"
 					/>
 				</a>
 				<a
@@ -35,7 +54,8 @@ const Footer: React.FC = () => {
 					<img
 						src="images/socialmedia/twitter.png"
 						alt=""
-						style={{ width: "40px", height: "40px" }}
+						// style={{ width: "40px", height: "40px" }}
+						className="w-8 h-8 md:w-10 md:h-10"
 					/>
 				</a>
 				<a
@@ -47,7 +67,8 @@ const Footer: React.FC = () => {
 					<img
 						src="images/socialmedia/linkedin.png"
 						alt=""
-						style={{ width: "40px", height: "40px" }}
+						// style={{ width: "40px", height: "40px" }}
+						className="w-8 h-8 md:w-10 md:h-10"
 					/>
 				</a>
 			</div>

@@ -219,7 +219,6 @@ function App() {
 			} else {
 				setcmFlag1(false);
 			}
-			console.log(cmFlag1,cmFlag2);
 		};
 
 		const content = contentRef.current;
@@ -235,7 +234,6 @@ function App() {
 					setcmFlag2(false);
 				}
 			}
-			console.log(cmFlag1,cmFlag2);
 		};
 
 		
@@ -294,7 +292,7 @@ function App() {
 			</div>
 
 			<div className="pt-[80vh] h-[100vh]">
-				<img src="images/main_bg.png" alt="" className="relative -z-20" />
+				<img src="images/main_bg.webp" alt="" className="relative -z-20" />
 
 				<div
 					className={`${

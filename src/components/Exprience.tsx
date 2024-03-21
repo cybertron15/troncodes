@@ -104,7 +104,7 @@ const Exprience: React.FC = () => {
 							<div
 								className="basis-3/12 h-14 lg:w-[35rem] bg-cover px-4 rounded-t-md"
 								style={{
-									backgroundImage: "url('images/bg2.jpg')",
+									backgroundImage: "url('images/bg2.webp')",
 								}}
 							>
 								<div className="font-roboto text-2xl md:text-4xl md:mt-10 mt-3">{exp.title}</div>

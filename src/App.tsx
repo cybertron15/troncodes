@@ -33,17 +33,13 @@ function App() {
 	const experienceRef = useRef<HTMLDivElement>(null);
 	const contactRef = useRef<HTMLDivElement>(null);
 
-	// state to control the content block scrolling
-	const [allowContentBlockScrollUp, setAllowContentBlockScrollUp] =
-		useState(true);
-
 	// state to control the content scrolling
 	const [allowContentScrollDown, setAllowContentScrollDown] = useState(false);
 
 	// hero display limits. making them positive for convinience
 	const heroDisplayLimit = 10;
-	const hero2DisplayLimit = 20;
-	const hero3DisplayLimit = 35;
+	const hero2DisplayLimit = 25;
+	const hero3DisplayLimit = 40;
 	// const windowHieght = window.innerHeight;
 	let fullScroll: number;
 	let contentfullScroll: number;
@@ -313,7 +309,7 @@ function App() {
 						<Projects />
 					</div>
 					<div className="pb-10" ref={experienceRef}>
-						{/* <Exprience /> */}
+						<Exprience />
 					</div>
 					<div className="" ref={contactRef}>
 						<Contact />

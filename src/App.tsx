@@ -71,7 +71,7 @@ function App() {
 		const contentHeight = contentRef.current?.scrollHeight;
 		switch (navigateTo) {
 			case "skills":
-				scrollHandler(0.2);
+				scrollHandler(0.3);
 				break;
 
 			case "home":

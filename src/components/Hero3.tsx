@@ -4,14 +4,6 @@ import skills from "../data/skills";
 // import TechTile from "./TechTile";
 
 const Hero3: React.FC = () => {
-	let chevronSize = 0
-	const mediumScreenSize = 768
-	if (window.innerWidth < mediumScreenSize){
-		chevronSize = 30
-	}
-		else{
-		chevronSize = 50
-	}
 	return (
 		<div className="text-center w-full">
 			<div className="font-roboto md:text-3xl sm:text-2xl lg:text-5xl text-xl">

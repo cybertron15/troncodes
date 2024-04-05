@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        roboto: 'Roboto', // Adds a new `font-inter` class
-        pacifico: 'Pacifico', // Adds a new `font-inter` class
-        caveat: 'Caveat' // Adds a new `font-inter` class
+        roboto: 'Roboto', // Adds a new `font-roboto` class
+        pacifico: 'Pacifico', // Adds a new `font-pacifico` class
+        caveat: 'Caveat' // Adds a new `font-caveat` class
       },
       animation: {
         heartbeat: 'heartbeat 1s infinite',

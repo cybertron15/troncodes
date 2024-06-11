@@ -80,7 +80,7 @@ const Projects: React.FC = () => {
 											project={project.name}
 										/>
 									</div>
-									<div className="basis-3/5 mt-4 md:flex md:flex-col md:justify-between">
+									<div className="basis-3/5 mt-4 flex flex-col justify-between">
 										<div>
 											<div className="font-roboto md:text-3xl lg:text-4xl xl:text-5xl sm:text-5xl text-4xl relative">
 												{project.title}
@@ -88,11 +88,12 @@ const Projects: React.FC = () => {
 											<div className="font-roboto md:text-xl lg:text-lg xl:text-2xl xl:h-48 text-sm h-20 md:h-28 lg:mt-2 overflow-y-auto">
 												{project.desc}
 											</div>
-										
+										</div>
+										<div>
 											<div className="font-roboto md:text-2xl text-xl lg:text-lg xl:text-2xl relative bottom-2 mt-8">
 												Tech Stack
 											</div>
-											
+
 											<div className="flex flex-wrap gap-5 w-full h-14 overflow-y-scroll">
 												{project.techStack.map((tech) => {
 													return (
@@ -106,29 +107,38 @@ const Projects: React.FC = () => {
 													);
 												})}
 											</div>
-											</div>
 
-											<div>
-											<hr className="to-white mt-6 mb-2 lg:mb-6" />
-											<div className="flex gap-3 justify-between md:mb-2">
-												<div className="basic-1/2 w-full">
-													<button
-														type="button"
-														className="bg-slate-700 hover:bg-slate-800 w-full text-lg md:text-xl lg:text-lg p-3 lg:p-1 xl:p-3 rounded-md"
-													>
-														Source Code
-													</button>
-												</div>
-												<div className="basic-1/2 w-full">
-													<button
-														type="button"
-														className="bg-orange-500 hover:bg-orange-600 w-full text-lg md:text-xl p-3 lg:p-1 xl:p-3 rounded-md lg:text-lg"
-													>
-														Open Application
-													</button>
+										
+											 <div>
+												<hr className="to-white mt-6 mb-2 lg:mb-6" />
+												<div className="flex gap-3 justify-between md:mb-2">
+												
+													<div className="basic-1/2 w-full">
+													<button type="button" disabled={!project.opensource} className="bg-slate-700 hover:bg-slate-800 w-full text-lg md:text-xl lg:text-lg p-3 lg:p-1 xl:p-3 rounded-md text-center">
+														<a href={project.github}
+															target="blank"
+															type="button"
+															
+															>
+															Source Code {!project.opensource && "(Private)"}
+														</a>
+															</button>
+													</div>
+													{project.live &&
+														<div className="basic-1/2 w-full">
+														<a href={project.liveLink}
+															target="blank"
+															type="button"
+															className="bg-orange-500 hover:bg-orange-600 w-full text-lg md:text-xl p-3 lg:p-1 xl:p-3 rounded-md lg:text-lg text-center"
+														>
+															Open Application
+														</a>
+													</div>}
 												</div>
 											</div>
 										</div>
+
+
 										<div className="flex justify-between md:hidden mt-2 mb-2 gap-3">
 											<button
 												type="button"

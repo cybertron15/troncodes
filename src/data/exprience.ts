@@ -75,6 +75,57 @@ const experience: Experience = {
             { name: "Linux", img: "linux.png", link: "https://www.linux.org/" },
         ],
     },
+    Freelancer: {
+        title: "Full Stack Engineer",
+        duration: ["July 2023", "July 2024"],
+        year: 2023,
+        company: "Freelance",
+        work: [
+            "Developed and maintained web applications using Python frameworks like Django and Flask, and JavaScript libraries such as React and Express.",
+            "Designed and implemented RESTful APIs for seamless integration with front-end systems and third-party services.",
+            "Created and optimized database schemas and queries, working with SQL databases, MongoDB, and PostgreSQL to ensure efficient data handling.",
+            "Collaborated with cross-functional teams to deliver high-quality software solutions tailored to client requirements.",
+            "Implemented CI/CD pipelines to streamline deployment processes and maintain code quality standards.",
+            "Developed a productivity tracking app to enhance team efficiency, focusing on user-friendly interfaces and real-time data insights."
+        ],
+        techStack: [
+            { name: "Python", img: "python.png", link: "https://www.python.org/" },
+            { name: "Django", img: "django.png", link: "https://www.djangoproject.com/" },
+            { name: "Flask", img: "flask.png", link: "https://flask.palletsprojects.com/" },
+            { name: "React", img: "react.png", link: "https://reactjs.org/" },
+            { name: "Express.js", img: "express.png", link: "https://expressjs.com/" },
+            { name: "PostgreSQL", img: "postgresql.webp", link: "https://www.postgresql.org/" },
+            { name: "MongoDB", img: "mongodb.png", link: "https://www.mongodb.com/" },
+            { name: "CI/CD", img: "cicd.webp", link: "https://en.wikipedia.org/wiki/CI/CD" }
+        ],
+    },
+    SeniorSoftwareEng: {
+        title: "Senior Software Engineer",
+        duration: ["July 2024", "Present"],
+        year: 2024,
+        company: "Good Health Company",
+        work: [
+            "Led the development of dynamic web applications, implementing features such as cart management, item addition, updates, deletions, payments, and location-based customization.",
+            "Developed AI-powered voice bots for handling customer reservations using natural language processing, enhancing user experience and automation.",
+            "Contributed to multiple full-stack projects, ensuring seamless integration of frontend and backend systems for optimal performance and scalability.",
+            "Collaborated with cross-functional teams to deliver user-centric software solutions tailored to complex business needs.",
+            "Implemented best practices in software engineering to ensure robust code quality, maintainability, and scalability.",
+            "Continuously explored and integrated emerging technologies to enhance system reliability and efficiency."
+        ],
+        techStack: [
+            { name: "React", img: "react.png", link: "https://reactjs.org/" },
+            { name: "Next.js", img: "nextjs.png", link: "https://nextjs.org/" },
+            { name: "Node.js", img: "node.png", link: "https://nodejs.org/" },
+            { name: "Express.js", img: "express.png", link: "https://expressjs.com/" },
+            { name: "Python", img: "python.png", link: "https://www.python.org/" },
+            { name: "Django", img: "django.png", link: "https://www.djangoproject.com/" },
+            { name: "PostgreSQL", img: "postgresql.webp", link: "https://www.postgresql.org/" },
+            { name: "MongoDB", img: "mongodb.png", link: "https://www.mongodb.com/" },
+            { name: "Stripe API", img: "stripe.png", link: "https://stripe.com/" },
+            { name: "OpenAI", img: "openai.webp", link: "https://openai.com/" }
+        ],
+    },
+    
 };
 
 export default experience;
